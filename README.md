@@ -2,6 +2,8 @@
 
 A nonpartisan election-integrity tool for Nigeria, built for the #AI4Elections Hackathon.
 
+**Live demo:** https://votecheck-ng.onrender.com (free hosting: the first visit after a quiet spell can take up to a minute to wake up).
+
 - **Voter help:** an assistant that answers questions about registration, PVCs, polling units, voting and results in English, Pidgin, Hausa, Yoruba and Igbo. It never says who to vote for.
 - **Result checker:** flags gaps between polling-unit result sheets (Form EC8A) and IReV uploads, plus over-voting and unusual turnout, for human verification.
 - **Observer report:** AI turns the flags into a plain-language report. Rules decide the flags, and people decide what happened.

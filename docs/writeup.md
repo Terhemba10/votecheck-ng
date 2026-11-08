@@ -1,7 +1,7 @@
 # VoteCheck NG — one-page write-up
 
 **#AI4Elections Hackathon 2026 · Terhemba Jonathan Alumo, B.Sc. Computer Science, University of Abuja**
-Live demo: _add your Render link here_ · Code: _add your GitHub link here_
+Live demo: https://votecheck-ng.onrender.com · Code: https://github.com/Terhemba10/votecheck-ng
 
 ## The problem
 Two gaps weaken trust in Nigerian elections:

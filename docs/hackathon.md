@@ -27,8 +27,8 @@ Organised by Rise Networks with INEC, Meta, Google, Microsoft, ICIR and partners
 
 ## Submission checklist
 - [ ] Application submitted before 12 November
-- [ ] Working demo running (local and, ideally, a hosted link)
-- [ ] Tests passing for the result checker
+- [x] Working demo running (local and, ideally, a hosted link)
+- [x] Tests passing for the result checker
 - [ ] Short demo video (2–3 minutes)
-- [ ] One-page write-up: problem, solution, focus areas, responsible-AI safeguards
+- [x] One-page write-up (draft): problem, solution, focus areas, responsible-AI safeguards
 - [ ] Plan for the Lagos showcase on 16 December

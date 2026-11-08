@@ -62,9 +62,24 @@ function renderChips() {
   }));
 }
 fetch("/data/voter_guide.json").then(r => r.json()).then(g => { guide = g; renderChips(); }).catch(() => {});
-$("lang").addEventListener("change", renderChips);
 
-addMsg("Hello! Ask me anything about registering, getting your PVC, voting on election day, or how results are shared. Pick your language above.", "bot");
+// Welcome message in each language. It follows the language picker until the first question is asked.
+const WELCOME = {
+  "English": "Hello! Ask me anything about registering, getting your PVC, voting on election day, or how results are shared. Pick your language above.",
+  "Nigerian Pidgin": "How far! Ask me anything about registration, how to get your PVC, how to vote for election day, or how dem dey share results. Choose your language for up.",
+  "Hausa": "Sannu! Ka tambaye ni komai game da rajista, samun PVC ɗinka, jefa ƙuri'a a ranar zaɓe, ko yadda ake raba sakamako. Zaɓi harshenka a sama.",
+  "Yoruba": "Ẹ kú àbọ̀! Ẹ bi mí ní ohunkóhun nípa ìforúkọsílẹ̀, gbígba PVC yín, dídìbò ní ọjọ́ ìdìbò, tàbí bí wọ́n ṣe ń pín èsì ìdìbò. Ẹ yan èdè yín lókè.",
+  "Igbo": "Nnọọ! Jụọ m ihe ọ bụla gbasara ndebanye aha, inweta PVC gị, ịtụ vootu n'ụbọchị ntuli aka, ma ọ bụ otu esi ekesa nsonaazụ. Họrọ asụsụ gị n'elu.",
+};
+const welcome = addMsg("", "bot");
+function renderWelcome() {
+  if (history.length) return;
+  const lang = $("lang").value;
+  welcome.textContent = WELCOME[lang] || WELCOME.English;
+  welcome.lang = LANG_CODES[lang] || "en";
+}
+renderWelcome();
+$("lang").addEventListener("change", () => { renderChips(); renderWelcome(); });
 $("composer").addEventListener("submit", e => { e.preventDefault(); ask(q.value); });
 q.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); ask(q.value); } });
 
@@ -72,7 +87,7 @@ fetch("/api/status").then(r => r.json()).then(s => {
   aiOn = s.ai;
   $("mode").textContent = aiOn
     ? "AI mode: answers in your chosen language, grounded in the built-in voter guide."
-    : "Guide mode: built-in answers to common questions in all five languages. Add an Anthropic API key to .env for AI answers to any question.";
+    : "Guide mode: built-in answers to common questions in all five languages. AI answers to any question can be switched on by the site owner.";
 }).catch(() => { $("mode").textContent = "Can't reach the server. Is it running?"; });
 
 /* ---------- Result checker ---------- */
