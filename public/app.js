@@ -1,4 +1,5 @@
 import { COLUMNS, toUnits, analyse, summarise, templateReport } from "/lib/checker.js";
+import { initHero } from "/hero.js";
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -80,6 +81,25 @@ function renderWelcome() {
 }
 renderWelcome();
 $("lang").addEventListener("change", () => { renderChips(); renderWelcome(); });
+
+/* ---------- Hero slide buttons ---------- */
+const VOTE_BUYING_Q = "Someone is offering money for my vote. What do I do?";
+function goToTab(id) {
+  $(id).click();
+  document.querySelector(".tabs").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+}
+initHero({
+  onAction(action) {
+    if (action === "check") return goToTab("tab-check");
+    goToTab("tab-ask");
+    if (action === "votebuy") {
+      const e = guide.find(g => g.question === VOTE_BUYING_Q);
+      const lang = $("lang").value;
+      if (e) return ask(e.translations?.[lang]?.question || e.question);
+    }
+    q.focus({ preventScroll: true });
+  },
+});
 $("composer").addEventListener("submit", e => { e.preventDefault(); ask(q.value); });
 q.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); ask(q.value); } });
 

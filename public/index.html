@@ -30,16 +30,40 @@
 </header>
 <div class="flagline" aria-hidden="true"></div>
 
-<section class="hero">
-  <div class="inner">
-    <div class="bars" aria-hidden="true"><i></i><i></i></div>
-    <p class="eyebrow">#AI4Elections · Nonpartisan</p>
-    <h1>Know how to vote. Check that results add up.</h1>
-    <p class="tag">Election help for voters in five languages, and a result checker that flags gaps between polling-unit result sheets and IReV uploads for human review.</p>
-    <div class="badges">
-      <span class="badge">English · Pidgin · Hausa · Yorùbá · Igbo</span>
-      <span class="badge">Rules decide flags, people decide outcomes</span>
+<!-- Announcement slider. Background: a waving Nigerian flag drawn live on a canvas (hero.js), not a photo. -->
+<section class="hero" id="hero" aria-roledescription="carousel" aria-label="Announcements">
+  <div class="hero-flag" aria-hidden="true"><canvas></canvas></div>
+  <div class="hero-shade" aria-hidden="true"></div>
+  <div class="inner hero-inner">
+    <h1 class="sr-only">VoteCheck NG: independent election help and result checking</h1>
+    <div class="hero-bars" role="group" aria-label="Choose announcement"></div>
+    <div class="slides">
+      <article class="slide" role="group" aria-roledescription="slide" aria-label="1 of 4">
+        <p class="eyebrow">Voter help · 5 languages</p>
+        <h2 class="slide-title">Ask how voting works, in your own language.</h2>
+        <p class="tag">Registration, PVCs, polling units, voting steps and results, answered in English, Pidgin, Hausa, Yorùbá and Igbo.</p>
+        <button class="btn hero-cta" type="button" data-action="ask">Ask a question <span aria-hidden="true">→</span></button>
+      </article>
+      <article class="slide" role="group" aria-roledescription="slide" aria-label="2 of 4">
+        <p class="eyebrow">Result checker</p>
+        <h2 class="slide-title">Check that polling-unit results add up.</h2>
+        <p class="tag">Upload results as a CSV. Fixed rules flag gaps between result sheets (Form EC8A) and IReV uploads, over-voting and missing uploads.</p>
+        <button class="btn hero-cta" type="button" data-action="check">Check results <span aria-hidden="true">→</span></button>
+      </article>
+      <article class="slide" role="group" aria-roledescription="slide" aria-label="3 of 4">
+        <p class="eyebrow">Know your rights</p>
+        <h2 class="slide-title">Your vote is secret. Selling it is an offence.</h2>
+        <p class="tag">Never photograph your ballot. Report vote buying to INEC officials, security agents at the polling unit, or accredited observers.</p>
+        <button class="btn hero-cta" type="button" data-action="votebuy">What to do <span aria-hidden="true">→</span></button>
+      </article>
+      <article class="slide" role="group" aria-roledescription="slide" aria-label="4 of 4">
+        <p class="eyebrow">How it works</p>
+        <h2 class="slide-title">Rules decide the flags. People decide the outcome.</h2>
+        <p class="tag">AI only explains. A flag means "verify this", never "fraud", and the same data always gives the same flags.</p>
+        <button class="btn hero-cta" type="button" data-action="check">See the checker <span aria-hidden="true">→</span></button>
+      </article>
     </div>
+    <button class="hero-pause" type="button" aria-pressed="false"><span aria-hidden="true" class="icon"></span><span class="label">Pause</span></button>
   </div>
 </section>
 
