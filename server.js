@@ -80,14 +80,15 @@ async function handleReport(req, res) {
   const { language, units } = await readJSON(req, 500_000);
   if (!Array.isArray(units)) return send(res, 400, { error: "units is required" });
   const results = analyse(units); // flags are recomputed on the server, never trusted from the browser
-  if (!AI_ON) return send(res, 200, { report: templateReport(results), source: "template" });
+  const lang = pickLanguage(language);
+  if (!AI_ON) return send(res, 200, { report: templateReport(results, lang), language: lang, source: "template" });
   try {
     const report = await callClaude("You write neutral, factual election-observation notes.",
-      [{ role: "user", content: reportPrompt(pickLanguage(language), results) }], 900);
-    send(res, 200, { report, source: "ai" });
+      [{ role: "user", content: reportPrompt(lang, results) }], 900);
+    send(res, 200, { report, language: lang, source: "ai" });
   } catch (e) {
     console.error(e.message);
-    send(res, 200, { report: templateReport(results), source: "template" });
+    send(res, 200, { report: templateReport(results, lang), language: lang, source: "template" });
   }
 }
 
@@ -113,6 +114,7 @@ const server = http.createServer(async (req, res) => {
     if (req.method !== "GET") { res.writeHead(405); return res.end(); }
     // Shared modules and sample data for the browser
     if (url.pathname === "/lib/checker.js") return serveFile(res, join(ROOT, "src", "checker.js"));
+    if (url.pathname === "/lib/report_text.js") return serveFile(res, join(ROOT, "src", "report_text.js"));
     if (url.pathname === "/data/sample_results.csv") return serveFile(res, join(ROOT, "data", "sample_results.csv"));
     if (url.pathname === "/data/voter_guide.json") return serveFile(res, join(ROOT, "data", "voter_guide.json"));
     const rel = normalize(url.pathname === "/" ? "/index.html" : url.pathname).replace(/^(\.\.[/\\])+/, "");

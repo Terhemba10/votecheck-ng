@@ -1,6 +1,7 @@
 // VoteCheck NG result checker.
 // Pure functions with no dependencies, so the same file runs in Node (tests, server) and in the browser.
 // Rules decide the flags; a flag means "verify this", never "fraud".
+import { REPORT_TEXT } from "./report_text.js";
 
 export const COLUMNS = ["pu_code", "pu_name", "ward", "registered", "accredited",
   "paper_a", "paper_b", "paper_c", "rejected", "irev_a", "irev_b", "irev_c"];
@@ -72,36 +73,35 @@ export function analyse(units) {
   const mad = median(turnouts.map(t => Math.abs(t - med))) || 0.01;
 
   return units.map(u => {
+    // Each flag keeps its figures in `data`, so the report can word it in any language (see report_text.js).
     const flags = [];
-    const add = (sev, rule, text) => flags.push({ sev, rule, text });
+    const add = (sev, rule, data = {}) => flags.push({ sev, rule, data, text: REPORT_TEXT.English.flags[rule](data) });
     const valid = u.paper.A + u.paper.B + u.paper.C;
     const cast = valid + u.rejected;
     const turnout = u.registered ? u.accredited / u.registered : 0;
 
     if (u.accredited > u.registered)
-      add("critical", "accredited_exceeds_registered", `Accredited voters (${u.accredited}) exceed registered voters (${u.registered}).`);
+      add("critical", "accredited_exceeds_registered", { accredited: u.accredited, registered: u.registered });
     if (cast > u.accredited)
-      add("critical", "over_voting", `Over-voting: ${cast} votes cast but only ${u.accredited} voters accredited.`);
+      add("critical", "over_voting", { cast, accredited: u.accredited });
 
     if (u.irev === null) {
-      if (u.accredited > 0)
-        add("warning", "missing_irev", "No IReV upload found. The Electoral Act 2026 requires electronic transmission of polling-unit results.");
+      if (u.accredited > 0) add("warning", "missing_irev");
     } else {
       for (const p of PARTIES) {
         const d = u.irev[p] - u.paper[p];
-        if (d !== 0) add("critical", "irev_mismatch", `Party ${p}: result sheet shows ${u.paper[p]}, IReV shows ${u.irev[p]} (${d > 0 ? "+" : ""}${d}).`);
+        if (d !== 0) add("critical", "irev_mismatch", { party: p, paper: u.paper[p], irev: u.irev[p], diff: (d > 0 ? "+" : "") + d });
       }
     }
 
     if (u.accredited > 0) {
       const z = 0.6745 * (turnout - med) / mad;
-      if (turnout >= 0.95) add("warning", "high_turnout", `Turnout of ${pct(turnout)} is unusually high.`);
-      else if (Math.abs(z) > 3.5) add("review", "turnout_outlier", `Turnout of ${pct(turnout)} is far from the area's typical ${pct(med)}.`);
+      if (turnout >= 0.95) add("warning", "high_turnout", { turnout: pct(turnout) });
+      else if (Math.abs(z) > 3.5) add("review", "turnout_outlier", { turnout: pct(turnout), median: pct(med) });
       const top = Math.max(u.paper.A, u.paper.B, u.paper.C);
-      if (valid > 50 && top / valid >= 0.95)
-        add("review", "one_sided", `One party received ${pct(top / valid)} of valid votes. Worth confirming against the result sheet.`);
+      if (valid > 50 && top / valid >= 0.95) add("review", "one_sided", { share: pct(top / valid) });
     } else if (u.registered > 0) {
-      add("review", "zero_accredited", "Zero voters accredited. Check whether voting held or the unit was cancelled.");
+      add("review", "zero_accredited");
     }
 
     const sev = flags.reduce((m, f) => SEVERITY_RANK[f.sev] > SEVERITY_RANK[m] ? f.sev : m, "clean");
@@ -118,15 +118,13 @@ export function summarise(results) {
   };
 }
 
-// Plain report used when the AI is unavailable.
-export function templateReport(results) {
+// Plain report used when the AI is unavailable, in any of the five languages (English if unknown).
+export function templateReport(results, language = "English") {
+  const T = REPORT_TEXT[language] || REPORT_TEXT.English;
   const flagged = results.filter(r => r.sev !== "clean");
-  if (!flagged.length) return "No polling units were flagged. Result sheets match IReV and no rule was triggered.";
-  const label = { critical: "Critical", warning: "Warning", review: "Review" };
-  return `Summary: ${results.length} polling units checked, ${flagged.length} flagged for verification.\n\n` +
-    flagged.map(r => `${r.code} (${r.name}) – ${label[r.sev]}\n` + r.flags.map(f => "  • " + f.text).join("\n")).join("\n\n") +
-    "\n\nNext steps for observers:\n1. Compare each flagged unit's physical Form EC8A with its IReV upload.\n" +
-    "2. Ask party agents and observers present at the unit what they recorded.\n" +
-    "3. Report confirmed issues to INEC through official channels.\n" +
-    "These flags are automated checks, not findings of wrongdoing.";
+  if (!flagged.length) return T.none;
+  return T.summary(results.length, flagged.length) + "\n\n" +
+    flagged.map(r => `${r.code} (${r.name}) – ${T.labels[r.sev]}\n` +
+      r.flags.map(f => "  • " + T.flags[f.rule](f.data || {})).join("\n")).join("\n\n") +
+    "\n\n" + T.next;
 }

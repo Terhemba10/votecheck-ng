@@ -158,10 +158,15 @@ $("copyTpl").addEventListener("click", async () => {
 $("genReport").addEventListener("click", async () => {
   const btn = $("genReport"), out = $("report");
   btn.disabled = true; out.textContent = "Writing…";
+  const lang = $("lang2").value;
   try {
-    const { report, source } = await postJSON("/api/report", { language: $("lang2").value, units });
-    out.textContent = report + (source === "template" && $("lang2").value !== "English" ? "\n\n(Translation needs AI mode.)" : "");
-  } catch { out.textContent = templateReport(results) + "\n\n(Server unavailable, so this is the standard report.)"; }
+    const { report } = await postJSON("/api/report", { language: lang, units });
+    out.textContent = report;
+  } catch {
+    // Server busy or offline: build the same report in the browser, from the same rules.
+    out.textContent = templateReport(results, lang);
+  }
+  out.lang = LANG_CODES[lang] || "en";
   btn.disabled = false;
 });
 $("copyReport").addEventListener("click", async e => {
