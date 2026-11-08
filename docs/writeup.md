@@ -1,48 +1,63 @@
-# VoteCheck NG — one-page write-up
+# VoteCheck NG — project write-up
 
-**#AI4Elections Hackathon 2026 · Terhemba Jonathan Alumo, B.Sc. Computer Science, University of Abuja**
-Live demo: https://votecheck-ng.onrender.com · Code: https://github.com/Terhemba10/votecheck-ng
+**#AI4Elections Hackathon 2026 · Team:** Terhemba Jonathan Alumo (B.Sc. Computer Science, University of Abuja) · _add teammate(s) here_
+**Live demo:** https://votecheck-ng.onrender.com · **Code (MIT licence):** https://github.com/Terhemba10/votecheck-ng
+
+## Tracks
+- **Track 2 — Electoral data analysis and decision support (main track).** The result checker flags data anomalies in polling-unit results **for human review**. It never declares results.
+- **Track 3 — Inclusive and multilingual civic technology.** Voter information and observer reports in English, Nigerian Pidgin, Hausa, Yorùbá and Igbo.
+- **Track 5 — Election observation and citizen accountability.** Structured observer reports with verification steps.
 
 ## The problem
-Two gaps weaken trust in Nigerian elections:
-1. **Voters can't easily get clear, neutral answers in their own language.** Basic questions (How do I replace a lost PVC? Where do I vote? What happens to my result?) are usually answered in English, on social media, mixed with rumours and partisan messages.
-2. **Comparing paper results with IReV uploads is slow manual work.** Observers and journalists have to compare each polling unit's result sheet (Form EC8A) with its IReV upload by hand. Mismatches, over-voting and missing uploads are easy to miss across thousands of units.
+1. **Voters struggle to get clear, neutral answers in their own language.** Basic questions (How do I replace a lost PVC? Where do I vote? What happens to my result?) are usually answered in English, on social media, mixed with rumours and partisan messages.
+2. **Comparing paper results with IReV uploads is slow manual work.** Observers and journalists compare each polling unit's result sheet (Form EC8A) with its IReV upload by hand. Mismatches, over-voting and missing uploads are easy to miss across thousands of units.
 
 ## The solution
-VoteCheck NG is a working web app with two tools:
+A working web app with two tools:
+- **Voter help.** Answers questions on registration, PVCs, polling units, voting steps, results, voter rights and reporting vote buying, in five languages. Answers come from a built-in voter guide and point to inecnigeria.org for dates and locations. It politely declines to say who to vote for.
+- **Result checker.** Upload polling-unit results as a CSV. Eight fixed rules flag issues by severity, and the app writes an **observer report**, in the selected language, with verification steps.
 
-- **Voter help (5 languages).** A chat that answers questions about registration, PVCs, polling units, voting steps, results, voter rights and reporting vote-buying, in **English, Nigerian Pidgin, Hausa, Yorùbá and Igbo**. Answers come from a built-in voter guide, and every answer points people to inecnigeria.org for dates and locations. It politely declines to say who to vote for.
-- **Result checker.** Upload polling-unit results as a CSV. Eight fixed, unit-tested rules flag issues for review:
-  - **Critical:** IReV figures differ from the paper sheet; over-voting; more accredited voters than registered.
+## Method
+- **Rules decide, people decide, AI only explains.** Eight deterministic rules produce every flag:
+  - **Critical:** IReV figure differs from the paper sheet; over-voting (votes cast > accredited); accredited > registered.
   - **Warning:** no IReV upload while voters were accredited; turnout of 95% or more.
-  - **Review:** turnout far from the area median; one party with 95% or more of valid votes; zero accredited voters.
+  - **Review:** turnout far from the area median (robust z-score, MAD, |z| > 3.5); one party with 95%+ of valid votes; zero accredited voters.
+- **Same data, same flags, every time.** The server re-runs every rule itself and never trusts flags sent from a browser.
+- **AI is optional.** With an API key, Claude writes free-form answers and reports, grounded in the guide and the computed flags. Without it, the app uses its own five-language guide and report templates, so it keeps working if the AI service fails.
 
-  It then writes a plain-language **observer report** with verification steps.
+## Evidence that it works
+- Live, publicly hosted prototype (link above).
+- **28 automated tests**, all passing. They cover every rule on the sample data, every guide translation, and the report in all five languages (same figures as English, never using the word "fraud").
+- On the fictional sample of 14 polling units, it flags exactly the 6 seeded problems (for example, unit 01-003: Party B sheet 149 vs IReV 194) and leaves the 8 clean units alone.
 
-## Focus areas covered
-- **Inclusive and multilingual civic technology:** the five-language voter help, which works even without an internet AI service.
-- **Electoral cybersecurity:** the result checker catches sheet-versus-IReV mismatches and missing uploads.
-- **Election observation:** prioritised flags and observer reports.
-- **Trustworthy electoral information:** answers come only from the guide and point to INEC's official site.
+## Data and privacy
+- **Data used:** a **fictional** sample (`data/sample_results.csv`) with placeholder parties A, B and C. Users can upload their own CSV of public or synthetic results. No voter registers, biometric data, personal records or restricted INEC data are used.
+- **Nigeria Data Protection Act 2023:** the app collects no personal data. There are no accounts and no database, and uploaded CSVs are processed in memory and not stored. Chat questions are not logged.
+- **No access to live systems:** VoteCheck NG does not connect to INEC, IReV, BVAS or any institutional system.
+- **Security:** the API key stays on the server, every request has a rate limit and a size limit, and files outside the public folder can't be fetched.
 
-## Responsible-AI safeguards
-- **Rules decide, people decide, AI only explains.** Fixed rules produce the flags. AI never counts votes, declares results or decides whether fraud happened.
-- **Deterministic and tested.** The same data always gives the same flags. 22 automated tests cover every checker rule and the multilingual guide.
-- **Neutral wording.** A flag means "verify this", never "fraud". The assistant never recommends, praises or criticises any candidate or party.
-- **Grounded answers.** No invented dates, URLs or phone numbers; a test checks that translations add none.
-- **Server-side checks.** The server re-runs every rule itself and never trusts flags sent from the browser.
-- **Privacy and safety.** No login, no database, no personal data stored. The API key stays on the server. Requests are rate-limited and size-limited.
-- **Works without AI.** If the AI service is off or fails, the app falls back to the built-in guide and template report, so it keeps working on election day.
-- **Clearly independent.** The app is not an official INEC site and says so on every page.
+## Human oversight
+| Role | Responsibility |
+|---|---|
+| **Accredited observer, journalist or civil-society analyst (user)** | Treats every flag as "verify this". Checks it against the physical Form EC8A, party agents' records and other observers before reporting anything. |
+| **INEC and the courts** | Alone decide results, validity and any finding of wrongdoing. VoteCheck NG makes no such determinations. |
+| **VoteCheck NG team** | Maintains the rules and the voter guide, fixes reported errors, and responds to complaints through the GitHub issue tracker. |
 
-## How it's built
-- Node.js with zero dependencies: nothing to install, easy to audit and host.
-- Plain HTML, CSS and JavaScript. The browser and the server share the same checker code.
-- Optional Claude AI for free-form answers in any of the five languages and for written reports.
-- Sample data is fictional, with placeholder parties A, B and C.
+## Limitations
+- **Translations** of the guide and report into Hausa, Yorùbá and Igbo are not yet reviewed by native speakers. Pidgin needs review too.
+- **Guide mode** covers 10 common topics. Other questions get a polite referral to inecnigeria.org unless AI is switched on.
+- **Data format:** the CSV layout is our own and supports three parties. Real data would need a conversion step and more party columns.
+- **Rules flag patterns, not wrongdoing.** A legitimate result can be flagged (for example, a genuinely high turnout), and an irregularity that leaves the figures consistent will not be caught.
+- **The "far from median" rule** needs enough units in an area to be meaningful.
+- **The flagged-units table** is still in English; the observer report follows the selected language.
 
-## Next steps (Lagos showcase, 16 December)
-- Native-speaker review of the Hausa, Yorùbá and Igbo answers with community partners.
-- Ward and LGA map of flags.
-- PDF export of observer reports.
-- Pilot with an accredited observer group on past public IReV data.
+## Conditions for further testing
+- Native-speaker review of all translated text, and usability testing with voters and observers, including people with disabilities.
+- Testing only on **public, anonymised or synthetic** data, or data explicitly authorised in writing. Never on live electoral systems.
+- Any pilot with an observer group or institution only under a written agreement, with a defined scope and approvals.
+
+## Next steps (finals in Abuja, December 2026)
+- Native-speaker review with university and community partners.
+- More parties, and import of public result formats.
+- Ward and LGA map of flags; PDF export of observer reports.
+- Translate the flagged-units table; audio answers for low-literacy users.

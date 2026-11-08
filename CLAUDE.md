@@ -6,7 +6,7 @@ A nonpartisan election-integrity tool for Nigeria, built for the #AI4Elections H
 1. **Voter help assistant.** A chat that answers questions about the electoral process in English, Nigerian Pidgin, Hausa, Yoruba and Igbo.
 2. **Result checker.** Upload polling-unit results as CSV. Fixed rules flag differences between the paper result sheet (Form EC8A) and the IReV upload, plus other anomalies. AI then writes a plain-language observer report.
 
-Hackathon focus areas covered: inclusive and multilingual civic technology, electoral cybersecurity, election observation.
+Hackathon tracks covered: Track 2 (electoral data analysis, main track), Track 3 (inclusive and multilingual civic technology), Track 5 (election observation). Entries must come from teams of 2 to 4 people.
 
 ## Core principle (do not break)
 - **Rules decide the flags, humans decide the outcome, and AI only explains.** AI never counts votes, never declares results, and never decides whether fraud happened.

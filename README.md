@@ -13,7 +13,7 @@ A nonpartisan election-integrity tool for Nigeria, built for the #AI4Elections H
 2. Optional: copy `.env.example` to `.env` and add your Anthropic API key to switch on AI answers to any question. Without it, the app answers common questions from the built-in guide, in all five languages.
 3. Run `npm run dev`.
 4. Open http://localhost:3000.
-5. Run `npm test` to run the 22 tests (result-checker rules and the multilingual guide).
+5. Run `npm test` to run the 28 tests (result-checker rules, the multilingual guide and the multilingual report).
 
 ## Deploy to Render (free)
 1. Push this folder to a GitHub repository. `.env` is ignored, so your key is never uploaded.

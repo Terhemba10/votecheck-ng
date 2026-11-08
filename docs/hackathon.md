@@ -1,34 +1,41 @@
 # #AI4Elections Hackathon — key facts
 
-Organised by Rise Networks with INEC, Meta, Google, Microsoft, ICIR and partners, supported by the MacArthur Foundation and Luminate. Confirm all details on ai4elections.risenetworks.org.
+Organised by Rise Networks with INEC, Meta, Google, Microsoft, ICIR and partners, supported by the MacArthur Foundation and Luminate. Confirm all details on ai4elections.risenetworks.org. The organisers' concept document is confidential, so it is not kept in this repository.
 
 ## Dates
 - Applications opened: 22 October 2026
-- **Applications close: 12 November 2026**
-- National innovation showcase: 16 December 2026, Lagos
+- **Applications close: 12 November 2026, 11:59pm WAT**
+- Onboarding and development sprint: mid-November 2026
+- Demo day and grand finale: December 2026, **Abuja**
 
 ## Eligibility
 - Nigerians aged 18 and above
-- Individuals or teams of up to 4
+- **Teams of 2 to 4 people.** Each member registers individually, as part of the same team. Individual applicants can join team matching.
+- University teams need a faculty lead and their Head of Department's approval letter; startups need CAC registration.
+- Applications in English only.
 
-## Focus areas
-1. Trustworthy electoral information
-2. Data-driven decision-making
-3. Inclusive and multilingual civic technology  <- voter help assistant
-4. Electoral cybersecurity                       <- result checker
-5. Election observation                          <- result checker and observer report
+## Tracks and how VoteCheck NG fits
+1. AI and trustworthy electoral information
+2. **Electoral data analysis and decision support**   <- result checker (main track)
+3. **Inclusive and multilingual civic technology**    <- voter help and five-language reports
+4. Electoral cybersecurity and resilience
+5. **Election observation and citizen accountability** <- observer report
 
 ## Requirements
-- It must be a working technology solution. Ideas, decks, research papers or wireframes alone are not enough.
-- Priorities: responsible AI, data privacy, human oversight, compliance with electoral law, nonpartisanship.
+- It must be a working technology solution. Ideas, decks, research papers or mockups alone are not enough.
+- Document the problem, method, evidence that it works, limitations, and conditions for further testing (see `docs/writeup.md`).
+- Only public, synthetic, anonymised or expressly authorised data. No access to live electoral systems.
+- Never declare results or make findings of fraud; keep human oversight. Comply with the Nigeria Data Protection Act 2023.
 
 ## Prizes
-- ₦10 million total cash prize pool, plus cloud credits, laptops and post-competition technical support.
+- ₦10 million total cash prize pool, plus special awards, cloud credits, laptops and post-competition support.
 
 ## Submission checklist
-- [ ] Application submitted before 12 November
-- [x] Working demo running (local and, ideally, a hosted link)
-- [x] Tests passing for the result checker
+- [ ] **Team of at least 2 registered** (each member individually)
+- [ ] Application submitted before 12 November, 11:59pm WAT
+- [x] Working demo running (local and hosted)
+- [x] Tests passing (checker, guide and report)
 - [ ] Short demo video (2–3 minutes)
-- [x] One-page write-up (draft): problem, solution, focus areas, responsible-AI safeguards
-- [ ] Plan for the Lagos showcase on 16 December
+- [x] Write-up: problem, method, evidence, safeguards, limitations, testing conditions
+- [ ] Native-speaker review of the Hausa, Yorùbá, Igbo and Pidgin text
+- [ ] Plan for the finals in Abuja, December 2026
