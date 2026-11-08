@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VoteCheck NG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Poppins:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%231f7a34'/%3E%3Crect x='14' y='0' width='12' height='40' fill='%23fff'/%3E%3Cpath d='M11 21l6 6 12-13' fill='none' stroke='%230a3a22' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+</head>
+<body>
+<header class="topbar">
+  <div class="inner">
+    <a class="brand" href="/" aria-label="VoteCheck NG home">
+      <!-- Original mark: a green-white-green tile with a check, for "verified". Not the INEC logo or the coat of arms. -->
+      <svg width="44" height="44" viewBox="0 0 40 40" aria-hidden="true">
+        <rect width="40" height="40" rx="10" fill="#1f7a34"/>
+        <rect x="14" y="0" width="12" height="40" fill="#fff"/>
+        <path d="M11 21l6 6 12-13" fill="none" stroke="#0a3a22" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>
+        <span class="name">VoteCheck <span>NG</span></span>
+        <span class="sub">Independent election help &amp; result checking</span>
+      </span>
+    </a>
+    <a class="official" href="https://inecnigeria.org" target="_blank" rel="noopener">Official INEC site ↗</a>
+  </div>
+</header>
+<div class="flagline" aria-hidden="true"></div>
+
+<section class="hero">
+  <div class="inner">
+    <div class="bars" aria-hidden="true"><i></i><i></i></div>
+    <p class="eyebrow">#AI4Elections · Nonpartisan</p>
+    <h1>Know how to vote. Check that results add up.</h1>
+    <p class="tag">Election help for voters in five languages, and a result checker that flags gaps between polling-unit result sheets and IReV uploads for human review.</p>
+    <div class="badges">
+      <span class="badge">English · Pidgin · Hausa · Yorùbá · Igbo</span>
+      <span class="badge">Rules decide flags, people decide outcomes</span>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-ask" aria-selected="true" aria-controls="panel-ask">Voter help</button>
+    <button class="tab" role="tab" id="tab-check" aria-selected="false" aria-controls="panel-check">Result checker</button>
+  </div>
+
+  <!-- VOTER HELP -->
+  <section class="panel" id="panel-ask" role="tabpanel" aria-labelledby="tab-ask">
+    <div class="card">
+      <div class="row" style="justify-content:space-between">
+        <h2>Ask about voting</h2>
+        <div class="row">
+          <label for="lang">Language</label>
+          <select id="lang">
+            <option>English</option><option>Nigerian Pidgin</option><option>Hausa</option><option>Yoruba</option><option>Igbo</option>
+          </select>
+        </div>
+      </div>
+      <p class="small" style="margin:6px 0 12px">It answers questions about how voting works. It never says who to vote for. Always confirm dates and locations on INEC's official website, inecnigeria.org.</p>
+      <div class="chips" id="chips"></div>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;gap:12px">
+      <div class="chat" id="chat" aria-live="polite"></div>
+      <form class="composer" id="composer">
+        <label for="q" class="small" style="position:absolute;left:-9999px">Your question</label>
+        <textarea id="q" rows="2" placeholder="Type your question, e.g. I lost my PVC, what do I do?"></textarea>
+        <button class="btn" id="send" type="submit">Send</button>
+      </form>
+      <p class="small" id="mode"></p>
+    </div>
+  </section>
+
+  <!-- RESULT CHECKER -->
+  <section class="panel" id="panel-check" role="tabpanel" aria-labelledby="tab-check" hidden>
+    <div class="card" style="display:flex;flex-direction:column;gap:10px">
+      <div class="row" style="justify-content:space-between">
+        <h2>Polling-unit result checker</h2>
+        <span class="pill" id="datasetLabel">Sample data: fictional polling units</span>
+      </div>
+      <p class="small" style="margin:0">Each check uses fixed rules, so the same data always gives the same flags. A flag means "verify this", not proof of fraud. Upload a CSV with the columns in the template, or explore the fictional sample.</p>
+      <div class="row">
+        <label class="btn ghost" for="csv" style="color:var(--accent)">Upload CSV</label>
+        <input type="file" id="csv" accept=".csv,text/csv" style="position:absolute;left:-9999px">
+        <button class="btn ghost" id="loadSample" type="button">Reload sample</button>
+        <button class="btn ghost" id="copyTpl" type="button">Copy CSV template</button>
+        <span class="small" id="csvMsg"></span>
+      </div>
+    </div>
+
+    <div class="tiles" id="tiles"></div>
+
+    <div class="card">
+      <h3 style="margin-bottom:8px">Flagged polling units</h3>
+      <div class="tablewrap"><table id="flagTable"></table></div>
+    </div>
+
+    <div class="card" style="display:flex;flex-direction:column;gap:10px">
+      <div class="row" style="justify-content:space-between">
+        <h3>Observer report</h3>
+        <div class="row">
+          <label for="lang2">Language</label>
+          <select id="lang2"><option>English</option><option>Nigerian Pidgin</option><option>Hausa</option><option>Yoruba</option><option>Igbo</option></select>
+          <button class="btn" id="genReport" type="button">Write report</button>
+          <button class="btn ghost" id="copyReport" type="button">Copy</button>
+        </div>
+      </div>
+      <div class="report" id="report">Press "Write report" for a plain-language summary of the flags, with verification steps for observers.</div>
+      <p class="notice">AI only explains the flags. It does not decide results or accuse anyone. Every flag needs a person to check the physical result sheet.</p>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-bottom:8px">All polling units</h3>
+      <div class="tablewrap"><table id="allTable"></table></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="inner">
+    <p><strong>VoteCheck NG is an independent prototype for the #AI4Elections Hackathon.</strong> It is not an official INEC website and does not declare results. For official dates, polling units and results, visit <a href="https://inecnigeria.org" target="_blank" rel="noopener">inecnigeria.org</a>.</p>
+    <p>Sample results are invented for demonstration and use placeholder party names.</p>
+  </div>
+</footer>
+
+<script type="module" src="/app.js"></script>
+</body>
+</html>

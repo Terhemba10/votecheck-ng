@@ -1,0 +1,17 @@
+# Render blueprint: one free web service. Nothing to install, so the build step is just a version check.
+services:
+  - type: web
+    name: votecheck-ng
+    runtime: node
+    plan: free
+    buildCommand: node -v
+    startCommand: node server.js
+    healthCheckPath: /api/status
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: MODEL
+        value: claude-haiku-5-5
+      # Optional: set ANTHROPIC_API_KEY in the Render dashboard (never in this file) to switch on AI answers.
+      - key: ANTHROPIC_API_KEY
+        sync: false

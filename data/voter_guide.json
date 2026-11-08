@@ -1,0 +1,272 @@
+[
+  {
+    "question": "How do I register or check my registration?",
+    "keywords": ["register", "registration", "registered", "cvr", "enrol", "check my"],
+    "answer": "Registration is done through INEC's Continuous Voter Registration (CVR). Start online on INEC's official website (inecnigeria.org) and complete it at an INEC registration centre or LGA office. You can also check your registration status through INEC's official channels. Registration only happens during the periods INEC announces, so check the website for current dates.",
+    "translations": {
+      "Nigerian Pidgin": {
+        "question": "How I go take register or check my registration?",
+        "keywords": ["how i go register", "register", "registration"],
+        "answer": "Na INEC Continuous Voter Registration (CVR) dem dey use do registration. Start am online for INEC official website (inecnigeria.org), then finish am for INEC registration centre or LGA office. You fit also check your registration status through INEC official channels. Registration dey happen only for the time wey INEC announce, so check the website for the correct dates."
+      },
+      "Hausa": {
+        "question": "Ta yaya zan yi rajista ko in duba rajistata?",
+        "keywords": ["rajista", "rajistata", "rajistar", "yi rajista", "duba rajista"],
+        "answer": "Ana yin rajista ta hanyar Ci gaba da Rajistar Masu Zaɓe na INEC (CVR). Fara a shafin intanet na INEC na hukuma (inecnigeria.org), sannan ka kammala a cibiyar rajista ta INEC ko ofishin INEC na ƙaramar hukuma (LGA). Haka kuma za ka iya duba matsayin rajistarka ta hanyoyin INEC na hukuma. Ana yin rajista ne kawai a lokutan da INEC ta sanar, don haka ka duba shafin don sanin ranakun yanzu."
+      },
+      "Yoruba": {
+        "question": "Báwo ni mo ṣe lè forúkọ sílẹ̀ tàbí ṣàyẹ̀wò ìforúkọsílẹ̀ mi?",
+        "keywords": ["forúkọ sílẹ̀", "ìforúkọsílẹ̀", "forúkọsílẹ̀"],
+        "answer": "Ìforúkọsílẹ̀ ń wáyé nípasẹ̀ ètò Continuous Voter Registration (CVR) ti INEC. Bẹ̀rẹ̀ lórí ayélujára ní ojú òpó wẹ́ẹ̀bù INEC (inecnigeria.org), kí o sì parí rẹ̀ ní ibùdó ìforúkọsílẹ̀ INEC tàbí ọ́fíìsì INEC ní ìjọba ìbílẹ̀ (LGA) rẹ. O tún lè ṣàyẹ̀wò ipò ìforúkọsílẹ̀ rẹ nípasẹ̀ àwọn ọ̀nà ìjọba INEC. Ìforúkọsílẹ̀ máa ń wáyé ní àwọn àkókò tí INEC bá kéde nìkan, nítorí náà ṣàyẹ̀wò ojú òpó wẹ́ẹ̀bù náà fún àwọn ọjọ́ tó wà lọ́wọ́lọ́wọ́."
+      },
+      "Igbo": {
+        "question": "Kedu ka m ga-esi debanye aha m ma ọ bụ lelee ndebanye aha m?",
+        "keywords": ["debanye aha", "ndebanye aha", "deba aha"],
+        "answer": "A na-edebanye aha site na usoro Continuous Voter Registration (CVR) nke INEC. Bido n'ịntanetị na weebụsaịtị INEC (inecnigeria.org), wee mechaa ya n'ebe ndebanye aha INEC ma ọ bụ n'ọfịs INEC nke ọchịchị ime obodo (LGA) gị. Ị nwekwara ike ịlele ọnọdụ ndebanye aha gị site n'ụzọ gọọmentị INEC. Ndebanye aha na-eme naanị n'oge INEC kwupụtara, ya mere lelee weebụsaịtị ahụ maka ụbọchị ndị dị ugbu a."
+      }
+    }
+  },
+  {
+    "question": "What do I need to bring to vote?",
+    "keywords": ["bring", "need", "pvc", "card", "document", "id"],
+    "answer": "Bring your Permanent Voter's Card (PVC). At the polling unit, the BVAS device checks your PVC and confirms it's you with your fingerprint or face. A photocopy or a photo of your PVC is not enough.",
+    "translations": {
+      "Nigerian Pidgin": {
+        "question": "Wetin I need carry go vote?",
+        "keywords": ["carry", "wetin i need", "pvc", "card"],
+        "answer": "Carry your Permanent Voter's Card (PVC). For the polling unit, the BVAS machine go check your PVC and confirm say na you, with your finger or your face. Photocopy or picture of your PVC no go work."
+      },
+      "Hausa": {
+        "question": "Me nake buƙata in kawo don jefa ƙuri'a?",
+        "keywords": ["kawo", "buƙata", "katin zaɓe", "katin", "pvc"],
+        "answer": "Ka zo da Katin Zaɓe na Dindindin (PVC). A rumfar zaɓe, na'urar BVAS za ta duba PVC ɗinka ta tabbatar kai ne ta hanyar zanen yatsa ko fuskarka. Kwafin PVC ko hotonsa ba zai isa ba."
+      },
+      "Yoruba": {
+        "question": "Kí ni mo nílò láti mú wá láti dìbò?",
+        "keywords": ["mú wá", "nílò", "káàdì", "pvc"],
+        "answer": "Mú Káàdì Ìdìbò Alálòpẹ́ (PVC) rẹ wá. Ní ibùdó ìdìbò, ẹ̀rọ BVAS yóò ṣàyẹ̀wò PVC rẹ, yóò sì fìdí rẹ̀ múlẹ̀ pé ìwọ ni, nípasẹ̀ ìka ọwọ́ tàbí ojú rẹ. Ẹ̀dà fọ́tòkọ́pì tàbí àwòrán PVC rẹ kò tó."
+      },
+      "Igbo": {
+        "question": "Gịnị ka m kwesịrị iburu gaa ịtụ vootu?",
+        "keywords": ["iburu", "kwesịrị", "kaadị", "pvc"],
+        "answer": "Buru Kaadị Ntuli Vootu Na-adịgide Adịgide (PVC) gị. N'ebe ntuli aka, igwe BVAS ga-elele PVC gị ma kwado na ọ bụ gị, site na mkpịsị aka gị ma ọ bụ ihu gị. Fotokopi ma ọ bụ foto PVC gị ezughị."
+      }
+    }
+  },
+  {
+    "question": "Where do I vote?",
+    "keywords": ["where", "polling unit", "location", "place", "station"],
+    "answer": "You can only vote at the polling unit where you registered. Your polling unit details are linked to your registration. You can look them up through INEC's official website or ask at your INEC LGA office.",
+    "translations": {
+      "Nigerian Pidgin": {
+        "question": "Where I go vote?",
+        "keywords": ["where i go vote", "where", "polling unit"],
+        "answer": "You fit vote only for the polling unit wey you register. Your polling unit details dey connected to your registration. You fit check am for INEC official website or ask for your INEC LGA office."
+      },
+      "Hausa": {
+        "question": "A ina zan jefa ƙuri'a?",
+        "keywords": ["a ina", "ina zan", "rumfar zaɓe", "rumfa"],
+        "answer": "Za ka iya jefa ƙuri'a ne kawai a rumfar zaɓen da ka yi rajista. Bayanan rumfar zaɓenka suna haɗe da rajistarka. Za ka iya duba su ta shafin intanet na INEC na hukuma, ko ka tambaya a ofishin INEC na ƙaramar hukumarka (LGA)."
+      },
+      "Yoruba": {
+        "question": "Níbo ni mo ti máa dìbò?",
+        "keywords": ["níbo", "ibùdó ìdìbò"],
+        "answer": "O lè dìbò ní ibùdó ìdìbò tí o ti forúkọ sílẹ̀ nìkan. Àwọn àlàyé nípa ibùdó ìdìbò rẹ so mọ́ ìforúkọsílẹ̀ rẹ. O lè wá wọn rí lórí ojú òpó wẹ́ẹ̀bù INEC, tàbí kí o béèrè ní ọ́fíìsì INEC ní ìjọba ìbílẹ̀ (LGA) rẹ."
+      },
+      "Igbo": {
+        "question": "Ebee ka m ga-atụ vootu?",
+        "keywords": ["ebee", "ebe ntuli aka"],
+        "answer": "Ị nwere ike ịtụ vootu naanị n'ebe ntuli aka (polling unit) ebe ị debanyere aha gị. Nkọwa gbasara ebe ntuli aka gị jikọrọ na ndebanye aha gị. Ị nwere ike ịchọta ya na weebụsaịtị INEC, ma ọ bụ jụọ n'ọfịs INEC nke ọchịchị ime obodo (LGA) gị."
+      }
+    }
+  },
+  {
+    "question": "How does voting work on election day?",
+    "keywords": ["how", "process", "steps", "election day", "vote work", "cubicle", "ballot"],
+    "answer": "1. Join the queue at your polling unit.\n2. Get accredited: the official checks your PVC and verifies you with BVAS.\n3. Collect your ballot paper.\n4. Mark it in private in the voting cubicle.\n5. Fold it and drop it in the ballot box in public view.\nPhones and cameras aren't allowed in the cubicle, to keep your vote secret.",
+    "translations": {
+      "Nigerian Pidgin": {
+        "question": "How voting dey work for election day?",
+        "keywords": ["how voting", "election day", "ballot", "cubicle", "steps"],
+        "answer": "1. Join the line for your polling unit.\n2. Do accreditation: the official go check your PVC and confirm you with BVAS.\n3. Collect your ballot paper.\n4. Mark am for private inside the voting cubicle.\n5. Fold am and drop am inside the ballot box where everybody fit see.\nPhone and camera no dey allowed inside the cubicle, so your vote go remain secret."
+      },
+      "Hausa": {
+        "question": "Yaya ake jefa ƙuri'a a ranar zaɓe?",
+        "keywords": ["ranar zaɓe", "yaya ake", "takardar zaɓe", "matakai"],
+        "answer": "1. Shiga layi a rumfar zaɓenka.\n2. A tantance ka: jami'i zai duba PVC ɗinka ya tabbatar da kai ta BVAS.\n3. Karɓi takardar zaɓenka.\n4. Yi alama a kanta a ɓoye a cikin rumfar kaɗa ƙuri'a.\n5. Ninka ta ka saka a akwatin zaɓe a gaban jama'a.\nBa a yarda da waya ko kyamara a cikin rumfar kaɗa ƙuri'a ba, don ƙuri'arka ta zama sirri."
+      },
+      "Yoruba": {
+        "question": "Báwo ni ìdìbò ṣe ń lọ ní ọjọ́ ìdìbò?",
+        "keywords": ["ọjọ́ ìdìbò", "báwo ni ìdìbò", "ìwé ìdìbò", "àgọ́ ìdìbò"],
+        "answer": "1. Tò sí ìlà ní ibùdó ìdìbò rẹ.\n2. Gba ìfọwọ́sí (accreditation): òṣìṣẹ́ yóò ṣàyẹ̀wò PVC rẹ, yóò sì fìdí rẹ múlẹ̀ pẹ̀lú BVAS.\n3. Gba ìwé ìdìbò rẹ.\n4. Sàmì sí i ní ìkọ̀kọ̀ nínú àgọ́ ìdìbò.\n5. Ká a, kí o sì sọ ọ́ sínú àpótí ìdìbò níwájú gbogbo ènìyàn.\nWọn kò gba fóònù tàbí kámẹ́rà láàyè nínú àgọ́ ìdìbò, kí ìbò rẹ lè jẹ́ àṣírí."
+      },
+      "Igbo": {
+        "question": "Kedu ka ntuli aka si arụ ọrụ n'ụbọchị ntuli aka?",
+        "keywords": ["ụbọchị ntuli aka", "kedu ka ntuli aka", "akwụkwọ vootu", "usoro"],
+        "answer": "1. Banye n'ahịrị n'ebe ntuli aka gị.\n2. Mee nnabata (accreditation): onye ọrụ ga-elele PVC gị ma kwado gị site na BVAS.\n3. Nara akwụkwọ vootu gị.\n4. Tụọ akara na ya na nzuzo n'ime ọnụ ụlọ ntuli aka.\n5. Pịa ya ma tinye ya n'ime igbe vootu n'ihu ọha.\nEkweghị ekwentị ma ọ bụ igwefoto n'ime ọnụ ụlọ ntuli aka, ka vootu gị wee bụrụ nzuzo."
+      }
+    }
+  },
+  {
+    "question": "How are results counted and shared?",
+    "keywords": ["result", "count", "irev", "ec8a", "announce", "upload"],
+    "answer": "Votes are counted openly at the polling unit right after voting, and voters may watch. The presiding officer announces the results, fills the result sheet (Form EC8A) and posts a copy publicly. Under the Electoral Act 2026, the polling-unit result must also be transmitted electronically to INEC's Result Viewing Portal (IReV), where anyone can view it.",
+    "translations": {
+      "Nigerian Pidgin": {
+        "question": "How dem dey count and share results?",
+        "keywords": ["result", "count", "irev", "ec8a", "announce"],
+        "answer": "Dem dey count votes for open for the polling unit immediately after voting, and voters fit watch. The presiding officer go announce the results, fill the result sheet (Form EC8A) and paste one copy for public. Under the Electoral Act 2026, dem must also send the polling-unit result electronically go INEC Result Viewing Portal (IReV), where anybody fit see am."
+      },
+      "Hausa": {
+        "question": "Yaya ake ƙirga sakamako da raba shi?",
+        "keywords": ["sakamako", "ƙirga", "irev", "ec8a"],
+        "answer": "Ana ƙirga ƙuri'u a fili a rumfar zaɓe nan da nan bayan zaɓe, kuma masu zaɓe za su iya kallo. Jami'in da ke jagorantar rumfar (presiding officer) zai sanar da sakamakon, ya cike takardar sakamako (Form EC8A), sannan ya liƙa kwafi a fili. A ƙarƙashin Dokar Zaɓe ta 2026 (Electoral Act 2026), dole ne kuma a tura sakamakon rumfar ta hanyar lantarki zuwa shafin INEC na Duba Sakamako (IReV), inda kowa zai iya gani."
+      },
+      "Yoruba": {
+        "question": "Báwo ni wọ́n ṣe ń ka èsì ìdìbò, tí wọ́n sì ń pín in?",
+        "keywords": ["èsì", "ka ìbò", "irev", "ec8a"],
+        "answer": "Wọ́n máa ń ka àwọn ìbò ní gbangba ní ibùdó ìdìbò lẹ́sẹ̀kẹsẹ̀ lẹ́yìn ìdìbò, àwọn olùdìbò sì lè wò ó. Olùdarí ibùdó ìdìbò (presiding officer) yóò kéde èsì, yóò kọ ọ́ sínú ìwé èsì (Form EC8A), yóò sì lẹ ẹ̀dà kan mọ́ ibi tí gbogbo ènìyàn ti lè rí i. Lábẹ́ Òfin Ìdìbò 2026 (Electoral Act 2026), wọ́n gbọ́dọ̀ tún fi èsì ibùdó ìdìbò ránṣẹ́ lórí ayélujára sí Result Viewing Portal (IReV) ti INEC, níbi tí ẹnikẹ́ni ti lè wò ó."
+      },
+      "Igbo": {
+        "question": "Kedu ka esi agụ ma kesaa nsonaazụ ntuli aka?",
+        "keywords": ["nsonaazụ", "agụ vootu", "irev", "ec8a"],
+        "answer": "A na-agụ vootu n'ihu ọha n'ebe ntuli aka ozugbo ntuli aka gwụchara, ndị ntuli aka nwekwara ike ile ya. Onye isi ebe ntuli aka (presiding officer) ga-ekwupụta nsonaazụ, dejupụta akwụkwọ nsonaazụ (Form EC8A) ma mado otu mbipụta n'ihu ọha. N'okpuru Iwu Ntuli Aka nke 2026 (Electoral Act 2026), a ga-ezigakwa nsonaazụ ebe ntuli aka ahụ site n'ịntanetị gaa na Result Viewing Portal (IReV) nke INEC, ebe onye ọ bụla nwere ike ịhụ ya."
+      }
+    }
+  },
+  {
+    "question": "Someone is offering money for my vote. What do I do?",
+    "keywords": ["money", "buy", "buying", "bribe", "pay", "offer", "sell"],
+    "answer": "Buying or selling votes is an offence under Nigeria's electoral law. Don't accept, and never photograph your ballot to prove a vote. You can report it to INEC officials, security agents at the polling unit, or accredited election observers. Your vote is secret: no one can see who you voted for.",
+    "translations": {
+      "Nigerian Pidgin": {
+        "question": "Somebody dey offer me money for my vote. Wetin I go do?",
+        "keywords": ["money", "buy", "bribe", "offer", "sell"],
+        "answer": "To buy or sell vote na offence under Nigeria electoral law. No collect am, and no ever snap your ballot to show who you vote. You fit report am to INEC officials, security people for the polling unit, or accredited election observers. Your vote na secret: nobody fit see who you vote for."
+      },
+      "Hausa": {
+        "question": "Wani yana ba ni kuɗi don ƙuri'ata. Me zan yi?",
+        "keywords": ["kuɗi", "sayen ƙuri'a", "saye", "sayar", "cin hanci"],
+        "answer": "Saye ko sayar da ƙuri'a laifi ne a ƙarƙashin dokar zaɓe ta Najeriya. Kada ka karɓa, kuma kada ka taɓa ɗaukar hoton takardar zaɓenka don nuna wanda ka zaɓa. Za ka iya kai rahoto ga jami'an INEC, jami'an tsaro a rumfar zaɓe, ko masu sa ido kan zaɓe da aka amince da su. Ƙuri'arka sirri ce: babu wanda zai iya ganin wanda ka zaɓa."
+      },
+      "Yoruba": {
+        "question": "Ẹnìkan ń fún mi lówó láti ra ìbò mi. Kí ni kí n ṣe?",
+        "keywords": ["ra ìbò", "ta ìbò", "fún mi lówó", "owó ìbò", "abẹ̀tẹ́lẹ̀"],
+        "answer": "Rírà tàbí títa ìbò jẹ́ ẹ̀ṣẹ̀ lábẹ́ òfin ìdìbò Nàìjíríà. Má ṣe gbà á, má sì ya àwòrán ìwé ìdìbò rẹ láti fi hàn ẹni tí o dìbò fún. O lè fi tó àwọn òṣìṣẹ́ INEC, àwọn agbófinró ní ibùdó ìdìbò, tàbí àwọn alábòójútó ìdìbò tí a fọwọ́ sí létí. Àṣírí ni ìbò rẹ: kò sí ẹni tó lè rí ẹni tí o dìbò fún."
+      },
+      "Igbo": {
+        "question": "Mmadụ na-enye m ego maka vootu m. Gịnị ka m ga-eme?",
+        "keywords": ["enye m ego", "ego maka vootu", "ịzụ vootu", "ire vootu", "zụta vootu"],
+        "answer": "Ịzụ ma ọ bụ ire vootu bụ mpụ n'okpuru iwu ntuli aka Naịjirịa. Anabatala ya, ma esela foto akwụkwọ vootu gị iji gosi onye ị tụụrụ vootu. Ị nwere ike ịkọrọ ndị ọrụ INEC, ndị nchekwa nọ n'ebe ntuli aka, ma ọ bụ ndị nlekọta ntuli aka a kwadoro. Vootu gị bụ nzuzo: ọ dịghị onye nwere ike ịhụ onye ị tụụrụ vootu."
+      }
+    }
+  },
+  {
+    "question": "I lost my PVC. What can I do?",
+    "keywords": ["lost", "missing", "damaged", "replace", "replacement", "stolen"],
+    "answer": "Apply for a replacement through INEC during an open registration period, starting on INEC's website or at your INEC LGA office. Replacements take time, so apply as early as you can before the election.",
+    "translations": {
+      "Nigerian Pidgin": {
+        "question": "My PVC don lost. Wetin I fit do?",
+        "keywords": ["lost", "don lost", "missing", "replace", "spoil"],
+        "answer": "Apply for replacement through INEC when registration dey open. Start for INEC website or for your INEC LGA office. Replacement dey take time, so apply early before the election."
+      },
+      "Hausa": {
+        "question": "Na rasa PVC ɗina. Me zan iya yi?",
+        "keywords": ["rasa", "ɓata", "ɓace", "maye gurbin", "sabon kati"],
+        "answer": "Nemi sabon kati ta INEC a lokacin da aka buɗe rajista. Ka fara daga shafin intanet na INEC ko ofishin INEC na ƙaramar hukumarka (LGA). Samun sabon kati yana ɗaukar lokaci, don haka ka nema da wuri kafin zaɓe."
+      },
+      "Yoruba": {
+        "question": "PVC mi ti sọnù. Kí ni mo lè ṣe?",
+        "keywords": ["sọnù", "bàjẹ́", "rọ́pò", "káàdì tuntun"],
+        "answer": "Béèrè fún káàdì tuntun nípasẹ̀ INEC ní àkókò tí ìforúkọsílẹ̀ bá ṣí sílẹ̀. Bẹ̀rẹ̀ lórí ojú òpó wẹ́ẹ̀bù INEC tàbí ní ọ́fíìsì INEC ní ìjọba ìbílẹ̀ (LGA) rẹ. Gbígba káàdì tuntun máa ń gba àkókò, nítorí náà béèrè fún un ní kùtùkùtù kí ìdìbò tó dé."
+      },
+      "Igbo": {
+        "question": "PVC m efuola. Gịnị ka m nwere ike ime?",
+        "keywords": ["efuola", "furu efu", "mebiri", "dochie", "kaadị ọhụrụ"],
+        "answer": "Rịọ maka kaadị ọhụrụ site na INEC n'oge ndebanye aha mepere emepe. Bido na weebụsaịtị INEC ma ọ bụ n'ọfịs INEC nke ọchịchị ime obodo (LGA) gị. Inweta kaadị ọhụrụ na-ewe oge, ya mere rịọ ya n'oge tupu ntuli aka erute."
+      }
+    }
+  },
+  {
+    "question": "Help for voters with disabilities",
+    "keywords": ["disab", "blind", "deaf", "wheelchair", "elderly", "pregnant", "assist", "priority"],
+    "answer": "Voters with disabilities, the elderly and pregnant women can be given priority in the queue. A voter who needs help marking the ballot may bring a person of their choice to assist. INEC also provides aids at some polling units, such as magnifying glasses and braille ballot guides. Ask the presiding officer.",
+    "translations": {
+      "Nigerian Pidgin": {
+        "question": "Help for voters wey get disability",
+        "keywords": ["disab", "blind", "deaf", "wheelchair", "old people", "pregnant"],
+        "answer": "Voters wey get disability, old people and pregnant women fit get priority for the line. Voter wey need help to mark the ballot fit bring person wey dem choose to help am. INEC dey also provide things for some polling units, like magnifying glass and braille ballot guide. Ask the presiding officer."
+      },
+      "Hausa": {
+        "question": "Taimako ga masu zaɓe masu nakasa",
+        "keywords": ["nakasa", "makaho", "makafi", "kurma", "keken guragu", "tsofaffi", "mai ciki", "juna biyu"],
+        "answer": "Masu zaɓe masu nakasa, tsofaffi da mata masu juna biyu za a iya ba su fifiko a layi. Mai zaɓe da ke buƙatar taimako wajen yin alama a takardar zaɓe zai iya zuwa da wanda ya zaɓa ya taimaka masa. INEC kuma tana samar da kayan taimako a wasu rumfunan zaɓe, kamar gilashin ƙara girman rubutu da jagorar takardar zaɓe ta braille. Ka tambayi jami'in da ke jagorantar rumfar (presiding officer)."
+      },
+      "Yoruba": {
+        "question": "Ìrànlọ́wọ́ fún àwọn olùdìbò tó ní àìlera ara",
+        "keywords": ["àìlera", "afọ́jú", "adití", "kẹ̀kẹ́ arọ", "àgbàlagbà", "aboyún"],
+        "answer": "Àwọn olùdìbò tó ní àìlera ara, àwọn àgbàlagbà àti àwọn aboyún lè gba àǹfààní láti kọ́kọ́ dìbò ní ìlà. Olùdìbò tó nílò ìrànlọ́wọ́ láti sàmì sí ìwé ìdìbò lè mú ẹni tí ó yàn wá láti ràn án lọ́wọ́. INEC tún máa ń pèsè àwọn irinṣẹ́ ìrànlọ́wọ́ ní àwọn ibùdó ìdìbò kan, bíi awò ìmúǹkantóbi àti ìtọ́sọ́nà ìwé ìdìbò ní braille. Béèrè lọ́wọ́ olùdarí ibùdó ìdìbò (presiding officer)."
+      },
+      "Igbo": {
+        "question": "Enyemaka maka ndị ntuli aka nwere nkwarụ",
+        "keywords": ["nkwarụ", "onye ìsì", "ntị chiri", "ndị agadi", "dị ime"],
+        "answer": "Ndị ntuli aka nwere nkwarụ, ndị agadi na ụmụ nwanyị dị ime nwere ike ịnara ohere ibu ụzọ n'ahịrị. Onye ntuli aka chọrọ enyemaka iji tụọ akara n'akwụkwọ vootu nwere ike ịkpọta onye ọ họọrọ ka o nyere ya aka. INEC na-enyekwa ngwa enyemaka n'ebe ntuli aka ụfọdụ, dịka iko na-eme ka ihe buo ibu na ntuziaka akwụkwọ vootu na braille. Jụọ onye isi ebe ntuli aka (presiding officer)."
+      }
+    }
+  },
+  {
+    "question": "When is the next election?",
+    "keywords": ["when", "date", "day", "timetable", "schedule", "2027"],
+    "answer": "Please check INEC's official timetable on inecnigeria.org for confirmed election dates. Dates can change, so rely only on INEC's announcement.",
+    "translations": {
+      "Nigerian Pidgin": {
+        "question": "When next election go happen?",
+        "keywords": ["when", "date", "timetable", "2027"],
+        "answer": "Abeg check INEC official timetable for inecnigeria.org for the confirmed election dates. Dates fit change, so na only INEC announcement you go trust."
+      },
+      "Hausa": {
+        "question": "Yaushe ne zaɓe na gaba?",
+        "keywords": ["yaushe", "jadawali", "2027"],
+        "answer": "Da fatan ka duba jadawalin INEC na hukuma a inecnigeria.org don ranakun zaɓe da aka tabbatar. Ranakun na iya canzawa, don haka ka dogara ga sanarwar INEC kawai."
+      },
+      "Yoruba": {
+        "question": "Ìgbà wo ni ìdìbò tó ń bọ̀?",
+        "keywords": ["ìgbà wo", "nígbà wo", "ọjọ́ wo", "2027"],
+        "answer": "Jọ̀wọ́ ṣàyẹ̀wò àtẹ àkókò ìdìbò ti INEC lórí inecnigeria.org fún àwọn ọjọ́ ìdìbò tí a ti fìdí rẹ̀ múlẹ̀. Àwọn ọjọ́ lè yípadà, nítorí náà gbára lé ìkéde INEC nìkan."
+      },
+      "Igbo": {
+        "question": "Olee mgbe ntuli aka ọzọ ga-eme?",
+        "keywords": ["olee mgbe", "mgbe", "2027"],
+        "answer": "Biko lelee usoro oge ntuli aka INEC na inecnigeria.org maka ụbọchị ntuli aka ekwenyere. Ụbọchị nwere ike ịgbanwe, ya mere tụkwasị obi naanị na ọkwa INEC."
+      }
+    }
+  },
+  {
+    "question": "Who should I vote for?",
+    "keywords": ["who should", "which party", "best candidate", "recommend", "support"],
+    "answer": "I can't tell you who to vote for. That choice is yours. I can explain how to compare candidates fairly: read each one's manifesto, check their record, and watch debates from several sources.",
+    "translations": {
+      "Nigerian Pidgin": {
+        "question": "Who I suppose vote for?",
+        "keywords": ["who i suppose", "who i go vote", "which party", "best candidate"],
+        "answer": "I no fit tell you who to vote for. Na your choice. I fit explain how to compare candidates well: read each person manifesto, check wetin dem don do before, and watch debates from different sources."
+      },
+      "Hausa": {
+        "question": "Wa zan zaɓa?",
+        "keywords": ["wa zan zaɓa", "wace jam'iyya", "wanne ɗan takara", "ɗan takara mafi kyau"],
+        "answer": "Ba zan iya gaya maka wanda za ka zaɓa ba. Zaɓin naka ne. Zan iya bayyana yadda za ka kwatanta 'yan takara cikin adalci: karanta manufofin kowanensu, duba tarihin ayyukansu, ka kalli muhawarori daga kafofi daban-daban."
+      },
+      "Yoruba": {
+        "question": "Ta ni kí n dìbò fún?",
+        "keywords": ["ta ni kí n dìbò", "ẹgbẹ́ òṣèlú wo", "olùdíje wo"],
+        "answer": "Mi ò lè sọ fún ọ ẹni tí o máa dìbò fún. Ìpinnu tìrẹ ni. Mo lè ṣàlàyé bí o ṣe lè fi àwọn olùdíje wé ara wọn lọ́nà tó tọ́: ka ìwé ìlérí (manifesto) olúkúlùkù wọn, ṣàyẹ̀wò ohun tí wọ́n ti ṣe sẹ́yìn, kí o sì wo àwọn ìjíròrò láti orísun ọ̀tọ̀ọ̀tọ̀."
+      },
+      "Igbo": {
+        "question": "Onye ka m ga-atụrụ vootu?",
+        "keywords": ["onye ka m ga", "otu ndọrọ ndọrọ ọchịchị", "onye kacha mma"],
+        "answer": "Enweghị m ike ịgwa gị onye ị ga-atụrụ vootu. Nhọrọ ahụ bụ nke gị. Enwere m ike ịkọwa otu esi atụnyere ndị na-azọ ọkwa n'ụzọ ziri ezi: gụọ manifesto onye ọ bụla n'ime ha, lelee ihe ha mere n'oge gara aga, ma lee arụmụka site n'ebe dị iche iche."
+      }
+    }
+  }
+]

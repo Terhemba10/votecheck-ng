@@ -1,0 +1,15 @@
+pu_code,pu_name,ward,registered,accredited,paper_a,paper_b,paper_c,rejected,irev_a,irev_b,irev_c
+01-001,Community Primary School I,Ward 01,812,402,171,158,61,12,171,158,61
+01-002,Community Primary School II,Ward 01,760,388,140,170,66,12,140,170,66
+01-003,Town Hall Open Space,Ward 01,905,431,182,149,88,12,182,194,88
+01-004,Market Square,Ward 01,690,355,150,129,64,12,,,
+02-001,Health Centre Junction,Ward 02,844,420,168,166,74,12,168,166,74
+02-002,Village Square,Ward 02,630,298,121,113,52,12,121,113,52
+02-003,Secondary School Field,Ward 02,720,350,160,140,70,15,160,140,70
+02-004,Motor Park,Ward 02,700,689,671,5,3,10,671,5,3
+03-001,Church Premises,Ward 03,880,445,178,170,85,12,178,170,85
+03-002,Mosque Junction,Ward 03,770,384,152,150,70,12,152,150,70
+03-003,Civic Centre,Ward 03,640,640,250,240,160,12,250,240,160
+03-004,Farm Settlement,Ward 03,520,0,0,0,0,0,0,0,0
+04-001,Primary School Hall,Ward 04,910,451,190,168,81,12,190,168,81
+04-002,Palace Forecourt,Ward 04,730,371,148,150,61,12,148,150,61

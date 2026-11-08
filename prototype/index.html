@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VoteCheck NG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a field tool for voters and observers — tab bar, then one working panel; summary before detail. */
+:root{
+  --bg:#f3f6f4; --surface:#ffffff; --ink:#13241c; --muted:#5b6d64; --line:#d6e0da;
+  --accent:#0b7a4b; --accent-ink:#ffffff; --accent-soft:#e2f2ea;
+  --crit:#b42318; --crit-soft:#fdecea; --warn:#a15c07; --warn-soft:#fff4e0; --ok:#0b7a4b; --info:#3b5bab; --info-soft:#e9eefb;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1612; --surface:#16211b; --ink:#e6efe9; --muted:#9db0a6; --line:#2a3a31;
+    --accent:#3fbf83; --accent-ink:#06120c; --accent-soft:#173426;
+    --crit:#ff8a7a; --crit-soft:#3a1714; --warn:#f2b45a; --warn-soft:#352610; --ok:#3fbf83; --info:#9db4ff; --info-soft:#1c2442;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1612; --surface:#16211b; --ink:#e6efe9; --muted:#9db0a6; --line:#2a3a31;
+  --accent:#3fbf83; --accent-ink:#06120c; --accent-soft:#173426;
+  --crit:#ff8a7a; --crit-soft:#3a1714; --warn:#f2b45a; --warn-soft:#352610; --ok:#3fbf83; --info:#9db4ff; --info-soft:#1c2442;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+.wrap{max-width:980px;margin:0 auto;padding:20px 16px 48px;display:flex;flex-direction:column;gap:18px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+h1{font-family:var(--display);font-size:30px;line-height:1.1;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-size:21px;margin:0;text-wrap:balance}
+h3{font-size:15px;margin:0}
+.tag{color:var(--muted);font-size:14px;margin:4px 0 0;max-width:62ch}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line)}
+.tab{font:600 15px var(--body);background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:10px 14px;cursor:pointer}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.tab:focus-visible,button:focus-visible,select:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.panel{display:flex;flex-direction:column;gap:14px}
+.panel[hidden]{display:none}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+label{font-size:13px;font-weight:600;color:var(--muted)}
+select,textarea,input[type=text]{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.btn{font:600 14px var(--body);border-radius:8px;padding:9px 14px;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:500 13px var(--body);border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer}
+.chip:hover{border-color:var(--accent)}
+.chat{display:flex;flex-direction:column;gap:10px;min-height:260px;max-height:460px;overflow-y:auto;padding:4px}
+.msg{max-width:80%;padding:10px 14px;border-radius:12px;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.user{align-self:flex-end;background:var(--accent);color:var(--accent-ink);border-bottom-right-radius:4px}
+.msg.bot{align-self:flex-start;background:var(--bg);border:1px solid var(--line);border-bottom-left-radius:4px}
+.msg.note{align-self:center;font-size:13px;color:var(--muted);background:none;padding:2px}
+.composer{display:flex;gap:8px}
+.composer textarea{flex:1;resize:vertical;min-height:44px}
+.small{font-size:13px;color:var(--muted)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;border-left:5px solid var(--line)}
+.tile .n{font-family:var(--display);font-size:28px;font-variant-numeric:tabular-nums}
+.tile .l{font-size:13px;color:var(--muted)}
+.tile.crit{border-left-color:var(--crit)} .tile.warn{border-left-color:var(--warn)} .tile.ok{border-left-color:var(--ok)} .tile.info{border-left-color:var(--info)}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.sev{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.sev.critical{background:var(--crit-soft);color:var(--crit)}
+.sev.warning{background:var(--warn-soft);color:var(--warn)}
+.sev.review{background:var(--info-soft);color:var(--info)}
+.sev.clean{background:var(--accent-soft);color:var(--ok)}
+ul.flags{margin:0;padding-left:18px}
+.report{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px;min-height:60px}
+.notice{font-size:13px;color:var(--muted);border-left:3px solid var(--accent);padding-left:10px}
+@media (max-width:480px){.msg{max-width:92%}h1{font-size:25px}}
+@media (prefers-reduced-motion: reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <span class="pill">AI4Elections prototype · nonpartisan</span>
+      <h1>VoteCheck NG</h1>
+      <p class="tag">Election help for voters in five languages, and a result checker that flags gaps between polling-unit result sheets and IReV uploads for human review.</p>
+    </div>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-ask" aria-selected="true" aria-controls="panel-ask">Voter help</button>
+    <button class="tab" role="tab" id="tab-check" aria-selected="false" aria-controls="panel-check">Result checker</button>
+  </div>
+
+  <!-- VOTER HELP -->
+  <section class="panel" id="panel-ask" role="tabpanel" aria-labelledby="tab-ask">
+    <div class="card">
+      <div class="row" style="justify-content:space-between">
+        <h2>Ask about voting</h2>
+        <div class="row">
+          <label for="lang">Language</label>
+          <select id="lang">
+            <option>English</option><option>Nigerian Pidgin</option><option>Hausa</option><option>Yoruba</option><option>Igbo</option>
+          </select>
+        </div>
+      </div>
+      <p class="small" style="margin:6px 0 12px">It answers questions about how voting works. It never says who to vote for. Always confirm dates and locations on INEC's official website, inecnigeria.org.</p>
+      <div class="chips" id="chips"></div>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;gap:12px">
+      <div class="chat" id="chat" aria-live="polite"></div>
+      <form class="composer" id="composer">
+        <label for="q" class="small" style="position:absolute;left:-9999px">Your question</label>
+        <textarea id="q" rows="2" placeholder="Type your question, e.g. I lost my PVC, what do I do?"></textarea>
+        <button class="btn" id="send" type="submit">Send</button>
+      </form>
+      <p class="small" id="mode"></p>
+    </div>
+  </section>
+
+  <!-- RESULT CHECKER -->
+  <section class="panel" id="panel-check" role="tabpanel" aria-labelledby="tab-check" hidden>
+    <div class="card" style="display:flex;flex-direction:column;gap:10px">
+      <div class="row" style="justify-content:space-between">
+        <h2>Polling-unit result checker</h2>
+        <span class="pill" id="datasetLabel">Sample data: fictional polling units</span>
+      </div>
+      <p class="small" style="margin:0">Each check uses fixed rules, so the same data always gives the same flags. A flag means "verify this", not proof of fraud. Upload a CSV with the columns in the template, or explore the fictional sample.</p>
+      <div class="row">
+        <label class="btn ghost" for="csv" style="color:var(--accent)">Upload CSV</label>
+        <input type="file" id="csv" accept=".csv,text/csv" style="position:absolute;left:-9999px">
+        <button class="btn ghost" id="loadSample" type="button">Reload sample</button>
+        <button class="btn ghost" id="copyTpl" type="button">Copy CSV template</button>
+        <span class="small" id="csvMsg"></span>
+      </div>
+    </div>
+
+    <div class="tiles" id="tiles"></div>
+
+    <div class="card">
+      <h3 style="margin-bottom:8px">Flagged polling units</h3>
+      <div class="tablewrap"><table id="flagTable"></table></div>
+    </div>
+
+    <div class="card" style="display:flex;flex-direction:column;gap:10px">
+      <div class="row" style="justify-content:space-between">
+        <h3>Observer report</h3>
+        <div class="row">
+          <label for="lang2">Language</label>
+          <select id="lang2"><option>English</option><option>Nigerian Pidgin</option><option>Hausa</option><option>Yoruba</option><option>Igbo</option></select>
+          <button class="btn" id="genReport" type="button">Write report</button>
+          <button class="btn ghost" id="copyReport" type="button">Copy</button>
+        </div>
+      </div>
+      <div class="report" id="report">Press "Write report" for a plain-language summary of the flags, with verification steps for observers.</div>
+      <p class="notice">AI only explains the flags. It does not decide results or accuse anyone. Every flag needs a person to check the physical result sheet.</p>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-bottom:8px">All polling units</h3>
+      <div class="tablewrap"><table id="allTable"></table></div>
+    </div>
+  </section>
+
+  <p class="small">Prototype for the #AI4Elections Hackathon. Sample results are invented for demonstration and use placeholder party names.</p>
+</div>
+
+<script>
+/* ---------- Knowledge base (offline answers + grounding for the AI) ---------- */
+const KB = [
+  {q:"How do I register or check my registration?", k:["register","registration","registered","cvr","enrol","check my"],
+   a:"Registration is done through INEC's Continuous Voter Registration (CVR). Start online on INEC's official website (inecnigeria.org) and complete it at an INEC registration centre or LGA office. You can also check your registration status through INEC's official channels. Registration only happens during the periods INEC announces, so check the website for current dates."},
+  {q:"What do I need to bring to vote?", k:["bring","need","pvc","card","document","id"],
+   a:"Bring your Permanent Voter's Card (PVC). At the polling unit, the BVAS device checks your PVC and confirms it's you with your fingerprint or face. A photocopy or a photo of your PVC is not enough."},
+  {q:"Where do I vote?", k:["where","polling unit","location","place","station"],
+   a:"You can only vote at the polling unit where you registered. Your polling unit details are linked to your registration. You can look them up through INEC's official website or ask at your INEC LGA office."},
+  {q:"How does voting work on election day?", k:["how","process","steps","election day","vote work","cubicle","ballot"],
+   a:"1. Join the queue at your polling unit.\n2. Get accredited: the official checks your PVC and verifies you with BVAS.\n3. Collect your ballot paper.\n4. Mark it in private in the voting cubicle.\n5. Fold it and drop it in the ballot box in public view.\nPhones and cameras aren't allowed in the cubicle, to keep your vote secret."},
+  {q:"How are results counted and shared?", k:["result","count","irev","ec8a","announce","upload"],
+   a:"Votes are counted openly at the polling unit right after voting, and voters may watch. The presiding officer announces the results, fills the result sheet (Form EC8A) and posts a copy publicly. Under the Electoral Act 2026, the polling-unit result must also be transmitted electronically to INEC's Result Viewing Portal (IReV), where anyone can view it."},
+  {q:"Someone is offering money for my vote. What do I do?", k:["money","buy","buying","bribe","pay","offer","sell"],
+   a:"Buying or selling votes is an offence under Nigeria's electoral law. Don't accept, and never photograph your ballot to prove a vote. You can report it to INEC officials, security agents at the polling unit, or accredited election observers. Your vote is secret: no one can see who you voted for."},
+  {q:"I lost my PVC. What can I do?", k:["lost","missing","damaged","replace","replacement","stolen"],
+   a:"Apply for a replacement through INEC during an open registration period, starting on INEC's website or at your INEC LGA office. Replacements take time, so apply as early as you can before the election."},
+  {q:"Help for voters with disabilities", k:["disab","blind","deaf","wheelchair","elderly","pregnant","assist","priority"],
+   a:"Voters with disabilities, the elderly and pregnant women can be given priority in the queue. A voter who needs help marking the ballot may bring a person of their choice to assist. INEC also provides aids at some polling units, such as magnifying glasses and braille ballot guides. Ask the presiding officer."},
+  {q:"When is the next election?", k:["when","date","day","timetable","schedule","2027"],
+   a:"Please check INEC's official timetable on inecnigeria.org for confirmed election dates. Dates can change, so rely only on INEC's announcement."},
+  {q:"Who should I vote for?", k:["who should","which party","best candidate","recommend","support"],
+   a:"I can't tell you who to vote for. That choice is yours. I can explain how to compare candidates fairly: read each one's manifesto, check their record, and watch debates from several sources."}
+];
+
+const SYSTEM = `You are VoteCheck NG, a nonpartisan voter-information assistant for Nigerian elections.
+Rules:
+- Answer ONLY about the electoral process: registration, PVCs, polling units, voting steps, results, rights, reporting offences.
+- Never recommend, praise or criticise any candidate or party. If asked who to vote for, politely decline and explain how to compare candidates fairly.
+- Use the reference notes below as your source of truth. Do not invent dates, URLs, phone numbers or figures. For dates and locations, tell the user to confirm on INEC's official website, inecnigeria.org.
+- If you are unsure, say so and point to INEC.
+- Keep answers short: under 120 words, plain language, numbered steps when helpful.
+- Reply in the language the user selected.
+Reference notes:
+${KB.map(e=>"- "+e.q+" "+e.a.replace(/\n/g," ")).join("\n")}`;
+
+/* ---------- Tabs ---------- */
+const tabs=[["tab-ask","panel-ask"],["tab-check","panel-check"]];
+tabs.forEach(([t,p])=>document.getElementById(t).addEventListener("click",()=>{
+  tabs.forEach(([t2,p2])=>{document.getElementById(t2).setAttribute("aria-selected",t2===t);document.getElementById(p2).hidden=p2!==p;});
+}));
+
+/* ---------- Chat ---------- */
+const chat=document.getElementById("chat"), q=document.getElementById("q"), sendBtn=document.getElementById("send"), modeEl=document.getElementById("mode");
+let sample=null, history=[];
+function addMsg(text,cls){const d=document.createElement("div");d.className="msg "+cls;d.textContent=text;chat.appendChild(d);chat.scrollTop=chat.scrollHeight;return d;}
+function offlineAnswer(text){
+  const t=text.toLowerCase(); let best=null,score=0;
+  KB.forEach(e=>{let s=0;e.k.forEach(k=>{if(t.includes(k))s+=k.length;});if(s>score){score=s;best=e;}});
+  return best? best.a : "I don't have an answer for that yet. Please check INEC's official website, inecnigeria.org, or ask at your INEC LGA office.";
+}
+const chipsEl=document.getElementById("chips");
+KB.slice(0,8).forEach(e=>{const b=document.createElement("button");b.type="button";b.className="chip";b.textContent=e.q;b.addEventListener("click",()=>ask(e.q));chipsEl.appendChild(b);});
+addMsg("Hello! Ask me anything about registering, getting your PVC, voting on election day, or how results are shared. Pick your language above.","bot");
+modeEl.textContent="Offline mode: answers come from the built-in guide in English. Live AI answers in all five languages switch on when available.";
+
+(async()=>{ try{ sample = window.claude ? await window.claude.use("sample") : null; }catch(e){ sample=null; }
+  if(sample) modeEl.textContent="Live AI mode: answers in your chosen language, grounded in the built-in voter guide."; })();
+
+async function ask(text){
+  text=text.trim(); if(!text) return;
+  addMsg(text,"user"); q.value=""; sendBtn.disabled=true;
+  const lang=document.getElementById("lang").value;
+  if(!sample){ addMsg(offlineAnswer(text),"bot"); if(lang!=="English") addMsg("Translation needs live AI mode. Showing English for now.","note"); sendBtn.disabled=false; return; }
+  history.push({role:"user",content:`[Reply in ${lang}] ${text}`});
+  const bubble=addMsg("Thinking…","bot");
+  try{
+    const res=await sample([{role:"user",content:SYSTEM+"\n\nConversation begins."},{role:"assistant",content:"Understood. I will follow these rules."},...history.slice(-10)],
+      {cache:false, modelTier:"quick", onText:({text})=>{bubble.textContent=text;chat.scrollTop=chat.scrollHeight;}});
+    bubble.textContent=res.text; history.push({role:"assistant",content:res.text});
+  }catch(err){
+    history.pop();
+    if(err && err.code==="not_granted"){ sample=null; modeEl.textContent="Live AI was not allowed, so answers come from the built-in English guide."; }
+    bubble.textContent=offlineAnswer(text);
+    addMsg(err && err.code==="rate_limited" ? "Too many questions at once. Showing the built-in answer; try again in a minute." : "Live AI is unavailable. Showing the built-in answer.","note");
+  }
+  sendBtn.disabled=false;
+}
+document.getElementById("composer").addEventListener("submit",e=>{e.preventDefault();ask(q.value);});
+q.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();ask(q.value);}});
+
+/* ---------- Result checker ---------- */
+const COLS=["pu_code","pu_name","ward","registered","accredited","paper_a","paper_b","paper_c","rejected","irev_a","irev_b","irev_c"];
+const SAMPLE_CSV=`pu_code,pu_name,ward,registered,accredited,paper_a,paper_b,paper_c,rejected,irev_a,irev_b,irev_c
+01-001,Community Primary School I,Ward 01,812,402,171,158,61,12,171,158,61
+01-002,Community Primary School II,Ward 01,760,388,140,170,66,12,140,170,66
+01-003,Town Hall Open Space,Ward 01,905,431,182,149,88,12,182,194,88
+01-004,Market Square,Ward 01,690,355,150,129,64,12,,,
+02-001,Health Centre Junction,Ward 02,844,420,168,166,74,12,168,166,74
+02-002,Village Square,Ward 02,630,298,121,113,52,12,121,113,52
+02-003,Secondary School Field,Ward 02,720,350,160,140,70,15,160,140,70
+02-004,Motor Park,Ward 02,700,689,671,5,3,10,671,5,3
+03-001,Church Premises,Ward 03,880,445,178,170,85,12,178,170,85
+03-002,Mosque Junction,Ward 03,770,384,152,150,70,12,152,150,70
+03-003,Civic Centre,Ward 03,640,640,250,240,160,12,250,240,160
+03-004,Farm Settlement,Ward 03,520,0,0,0,0,0,0,0,0
+04-001,Primary School Hall,Ward 04,910,451,190,168,81,12,190,168,81
+04-002,Palace Forecourt,Ward 04,730,371,148,150,61,12,148,150,61`;
+
+function parseCSV(text){
+  const rows=[];let cur=[],f="",inQ=false;
+  for(let i=0;i<text.length;i++){const c=text[i];
+    if(inQ){ if(c==='"'){ if(text[i+1]==='"'){f+='"';i++;} else inQ=false; } else f+=c; }
+    else if(c==='"') inQ=true; else if(c===','){cur.push(f);f="";}
+    else if(c==='\n'||c==='\r'){ if(c==='\r'&&text[i+1]==='\n')i++; cur.push(f);f=""; if(cur.some(x=>x.trim()!==""))rows.push(cur); cur=[]; }
+    else f+=c; }
+  cur.push(f); if(cur.some(x=>x.trim()!==""))rows.push(cur);
+  return rows;
+}
+function toUnits(text){
+  const rows=parseCSV(text); if(rows.length<2) throw new Error("The file has no data rows.");
+  const head=rows[0].map(h=>h.trim().toLowerCase());
+  const missing=COLS.filter(c=>!head.includes(c)); if(missing.length) throw new Error("Missing columns: "+missing.join(", ")+". Use the CSV template.");
+  const ix=Object.fromEntries(COLS.map(c=>[c,head.indexOf(c)]));
+  const num=(r,c)=>{const v=(r[ix[c]]||"").trim(); return v===""?null:Number(v);};
+  return rows.slice(1).map((r,n)=>{
+    const u={code:(r[ix.pu_code]||"").trim(),name:(r[ix.pu_name]||"").trim(),ward:(r[ix.ward]||"").trim(),
+      registered:num(r,"registered"),accredited:num(r,"accredited"),rejected:num(r,"rejected")||0,
+      paper:{A:num(r,"paper_a")||0,B:num(r,"paper_b")||0,C:num(r,"paper_c")||0},
+      irev:[num(r,"irev_a"),num(r,"irev_b"),num(r,"irev_c")].every(v=>v===null)?null:{A:num(r,"irev_a")||0,B:num(r,"irev_b")||0,C:num(r,"irev_c")||0}};
+    if([u.registered,u.accredited].some(v=>v===null||isNaN(v))) throw new Error(`Row ${n+2}: registered and accredited must be numbers.`);
+    return u;});
+}
+function median(a){const s=[...a].sort((x,y)=>x-y),m=Math.floor(s.length/2);return s.length?(s.length%2?s[m]:(s[m-1]+s[m])/2):0;}
+const RANK={critical:3,warning:2,review:1,clean:0};
+
+function analyse(units){
+  const turnouts=units.filter(u=>u.accredited>0&&u.registered>0).map(u=>u.accredited/u.registered);
+  const med=median(turnouts), mad=median(turnouts.map(t=>Math.abs(t-med)))||0.01;
+  return units.map(u=>{
+    const flags=[]; const add=(sev,text)=>flags.push({sev,text});
+    const valid=u.paper.A+u.paper.B+u.paper.C, cast=valid+u.rejected, turnout=u.registered?u.accredited/u.registered:0;
+    if(u.accredited>u.registered) add("critical",`Accredited voters (${u.accredited}) exceed registered voters (${u.registered}).`);
+    if(cast>u.accredited) add("critical",`Over-voting: ${cast} votes cast but only ${u.accredited} voters accredited.`);
+    if(u.irev===null){ if(u.accredited>0) add("warning","No IReV upload found. The Electoral Act 2026 requires electronic transmission of polling-unit results."); }
+    else{ ["A","B","C"].forEach(p=>{const d=u.irev[p]-u.paper[p]; if(d!==0) add("critical",`Party ${p}: result sheet shows ${u.paper[p]}, IReV shows ${u.irev[p]} (${d>0?"+":""}${d}).`);}); }
+    if(u.accredited>0){
+      const z=0.6745*(turnout-med)/mad;
+      if(turnout>=0.95) add("warning",`Turnout of ${(turnout*100).toFixed(1)}% is unusually high.`);
+      else if(Math.abs(z)>3.5) add("review",`Turnout of ${(turnout*100).toFixed(1)}% is far from the area's typical ${(med*100).toFixed(1)}%.`);
+      const top=Math.max(u.paper.A,u.paper.B,u.paper.C);
+      if(valid>50&&top/valid>=0.95) add("review",`One party received ${(top/valid*100).toFixed(1)}% of valid votes. Worth confirming against the result sheet.`);
+    } else if(u.registered>0) add("review","Zero voters accredited. Check whether voting held or the unit was cancelled.");
+    const sev=flags.reduce((m,f)=>RANK[f.sev]>RANK[m]?f.sev:m,"clean");
+    return {...u,valid,cast,turnout,flags,sev};
+  }).sort((a,b)=>RANK[b.sev]-RANK[a.sev]);
+}
+
+let results=[];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sevLabel={critical:"Critical",warning:"Warning",review:"Review",clean:"Clean"};
+function render(){
+  const count=s=>results.filter(r=>r.sev===s).length;
+  const mism=results.filter(r=>r.flags.some(f=>f.text.includes("IReV shows"))).length;
+  document.getElementById("tiles").innerHTML=[
+    ["info","Polling units checked",results.length],["crit","Critical flags",count("critical")],
+    ["warn","Warnings",count("warning")],["info","Need review",count("review")],["ok","Clean",count("clean")],["crit","Sheet vs IReV mismatches",mism]
+  ].map(([c,l,n])=>`<div class="tile ${c}"><div class="n">${n}</div><div class="l">${l}</div></div>`).join("");
+  const flagged=results.filter(r=>r.sev!=="clean");
+  document.getElementById("flagTable").innerHTML=flagged.length?
+    `<thead><tr><th>Severity</th><th>Polling unit</th><th>What to verify</th></tr></thead><tbody>${flagged.map(r=>
+    `<tr><td><span class="sev ${r.sev}">${sevLabel[r.sev]}</span></td><td><strong>${esc(r.code)}</strong><br><span class="small">${esc(r.name)} · ${esc(r.ward)}</span></td><td><ul class="flags">${r.flags.map(f=>`<li>${esc(f.text)}</li>`).join("")}</ul></td></tr>`).join("")}</tbody>`
+    :`<tbody><tr><td>No polling units were flagged.</td></tr></tbody>`;
+  document.getElementById("allTable").innerHTML=`<thead><tr><th>PU</th><th>Status</th><th>Registered</th><th>Accredited</th><th>Turnout</th><th>A</th><th>B</th><th>C</th><th>Rejected</th><th>IReV</th></tr></thead><tbody>${
+    results.map(r=>`<tr><td><strong>${esc(r.code)}</strong><br><span class="small">${esc(r.name)}</span></td><td><span class="sev ${r.sev}">${sevLabel[r.sev]}</span></td><td class="num">${r.registered}</td><td class="num">${r.accredited}</td><td class="num">${(r.turnout*100).toFixed(1)}%</td><td class="num">${r.paper.A}</td><td class="num">${r.paper.B}</td><td class="num">${r.paper.C}</td><td class="num">${r.rejected}</td><td class="num">${r.irev?r.irev.A+" / "+r.irev.B+" / "+r.irev.C:"Not uploaded"}</td></tr>`).join("")}</tbody>`;
+  document.getElementById("report").textContent='Press "Write report" for a plain-language summary of the flags, with verification steps for observers.';
+}
+function load(text,label){
+  const msg=document.getElementById("csvMsg");
+  try{ results=analyse(toUnits(text)); document.getElementById("datasetLabel").textContent=label; msg.textContent=""; render(); }
+  catch(e){ msg.textContent=e.message; }
+}
+document.getElementById("loadSample").addEventListener("click",()=>load(SAMPLE_CSV,"Sample data: fictional polling units"));
+document.getElementById("csv").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>load(t,"Your file: "+f.name));e.target.value="";});
+document.getElementById("copyTpl").addEventListener("click",async()=>{const m=document.getElementById("csvMsg");
+  try{await navigator.clipboard.writeText(COLS.join(",")+"\n01-001,Example School,Ward 01,800,400,150,150,80,20,150,150,80");m.textContent="Template copied. Leave the IReV columns blank if a result wasn't uploaded.";}
+  catch(e){m.textContent="Copy failed. Columns: "+COLS.join(",");}});
+
+function templateReport(){
+  const f=results.filter(r=>r.sev!=="clean");
+  if(!f.length) return "No polling units were flagged. Results on the sheets match IReV and no rule was triggered.";
+  return `Summary: ${results.length} polling units checked, ${f.length} flagged for verification.\n\n`+
+    f.map(r=>`${r.code} (${r.name}) – ${sevLabel[r.sev]}\n`+r.flags.map(x=>"  • "+x.text).join("\n")).join("\n\n")+
+    `\n\nNext steps for observers:\n1. Compare each flagged unit's physical Form EC8A with its IReV upload.\n2. Ask party agents and observers present at the unit what they recorded.\n3. Report confirmed issues to INEC through official channels.\nThese flags are automated checks, not findings of wrongdoing.`;
+}
+document.getElementById("genReport").addEventListener("click",async()=>{
+  const out=document.getElementById("report"), btn=document.getElementById("genReport"), lang=document.getElementById("lang2").value;
+  if(!sample){ out.textContent=templateReport()+(lang!=="English"?"\n\n(Translation needs live AI mode.)":""); return; }
+  btn.disabled=true; out.textContent="Writing…";
+  const data=results.filter(r=>r.sev!=="clean").map(r=>({pu:r.code,name:r.name,ward:r.ward,severity:r.sev,flags:r.flags.map(f=>f.text)}));
+  const prompt=`You write neutral election-observation notes for Nigeria. Write in ${lang}.
+Data: ${results.length} polling units checked by fixed rules. Flagged units (JSON): ${JSON.stringify(data)}
+Write: (1) a two-sentence summary with counts, (2) each flagged unit with what to verify in plain words, most severe first, (3) three practical verification steps (compare physical Form EC8A with IReV, speak to party agents/observers present, report confirmed issues to INEC).
+Rules: no accusations, no party favouritism, call them "flags for verification", don't invent facts beyond the data, under 250 words, plain text with simple numbering.`;
+  try{ const res=await sample(prompt,{cache:false,modelTier:"quick",onText:({text})=>{out.textContent=text;}}); out.textContent=res.text; }
+  catch(err){ if(err&&err.code==="not_granted") sample=null; out.textContent=templateReport()+"\n\n(Live AI unavailable, so this is the standard report.)"; }
+  btn.disabled=false;
+});
+document.getElementById("copyReport").addEventListener("click",async e=>{try{await navigator.clipboard.writeText(document.getElementById("report").textContent);e.target.textContent="Copied";setTimeout(()=>e.target.textContent="Copy",1500);}catch(_){e.target.textContent="Copy failed";}});
+
+load(SAMPLE_CSV,"Sample data: fictional polling units");
+</script>
+</body>
+</html>

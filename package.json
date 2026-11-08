@@ -1,0 +1,15 @@
+{
+  "name": "votecheck-ng",
+  "version": "0.1.0",
+  "description": "Nonpartisan voter help assistant and polling-unit result checker for Nigerian elections (#AI4Elections Hackathon).",
+  "type": "module",
+  "private": true,
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "author": "Terhemba Jonathan Alumo",
+  "license": "MIT"
+}
