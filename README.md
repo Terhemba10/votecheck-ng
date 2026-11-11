@@ -4,6 +4,11 @@ A nonpartisan election-integrity tool for Nigeria, built for the #AI4Elections H
 
 **Live demo:** https://votecheck-ng.onrender.com (free hosting: the first visit after a quiet spell can take up to a minute to wake up).
 
+## Demo video (2:53)
+[![VoteCheck NG demo video: Do the results add up?](docs/thumbnail.png)](https://youtu.be/sooXoXegRoU)
+
+Watch on YouTube: https://youtu.be/sooXoXegRoU. Every screen is the live site: switching languages, a VIN lookup on test data, the neutral assistant, result flags, the 2023 results by state and local government, live result-sheet checks and a party agent report.
+
 ## What's in it
 - **Sign in with Google.** One sign-in per Google account. Only your name and email are used, kept in a signed cookie on your device for 8 hours; the server stores nothing.
 - **Home:** three animated scenes (Your vote will count · Vote your choice · Don't sell your vote) and the four tools.
@@ -22,7 +27,7 @@ Rules decide the flags, people decide the outcome, and AI only explains.
    - Add `ANTHROPIC_API_KEY` to switch on AI answers to any question. Without it, the app answers common questions from the built-in guide, in all five languages.
    - Add `GOOGLE_CLIENT_ID` and `SESSION_SECRET` to switch on Google sign-in. Without them, the site runs in open demo mode.
 3. Run `npm run dev` and open http://localhost:3000.
-4. Run `npm test` to run the 54 tests (result and result-sheet rules, 2023 checks, sign-in and sessions, all five languages).
+4. Run `npm test` to run the 58 tests (result and result-sheet rules, 2023 checks, sign-in and sessions, all five languages).
 
 ## Setting up Google sign-in
 1. In Google Cloud Console, open **APIs & Services → OAuth consent screen** and set it up (External, app name "VoteCheck NG").

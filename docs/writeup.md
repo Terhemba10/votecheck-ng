@@ -1,7 +1,7 @@
 # VoteCheck NG — project write-up
 
 **#AI4Elections Hackathon 2026 · Team:** Terhemba Jonathan Alumo (B.Sc. Computer Science, University of Abuja) · _add teammate(s) here_
-**Live demo:** https://votecheck-ng.onrender.com · **Code (MIT licence):** https://github.com/Terhemba10/votecheck-ng
+**Live demo:** https://votecheck-ng.onrender.com · **Demo video:** https://youtu.be/sooXoXegRoU · **Code (MIT licence):** https://github.com/Terhemba10/votecheck-ng
 
 ## Tracks
 - **Track 2 — Electoral data analysis and decision support (main track).** The result checker flags data anomalies in polling-unit results **for human review**. It never declares results.
