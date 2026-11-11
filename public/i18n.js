@@ -769,6 +769,54 @@ Object.assign(IG, {
   "report.editNote": "Ị nwere ike idezi akụkọ ahụ tupu i detuo ma ọ bụ budata ya.",
 });
 
+
+// Polling-unit report for party agents and observers.
+Object.assign(EN, {
+  "rep.h": "Polling unit report",
+  "rep.lead": "For party agents and observers at the polling unit. VoteCheck fills in the figures and checks from the sheet above; add what you saw, then send it yourself. Nothing leaves your phone until you send, copy or download it.",
+  "rep.role": "I am a", "rep.roleAgent": "Party agent", "rep.roleObserver": "Election observer",
+  "rep.party": "Party you represent", "rep.observer": "Your name (optional)",
+  "rep.send": "Send report…",
+  "rep.sendHint": "Send it to your party's situation room or collation agent, or to your observer group. VoteCheck does not send reports to INEC or anyone else.",
+  "rep.titleAgent": "PARTY AGENT REPORT", "rep.agentLabel": "Party agent", "rep.partyLabel": "Party",
+});
+Object.assign(PCM, {
+  "rep.h": "Polling unit report",
+  "rep.lead": "For party agents and observers for the polling unit. VoteCheck go fill the figures and checks from the sheet wey dey up; add wetin you see, then send am by yourself. Nothing go comot your phone until you send, copy or download am.",
+  "rep.role": "I be", "rep.roleAgent": "Party agent", "rep.roleObserver": "Election observer",
+  "rep.party": "The party wey you represent", "rep.observer": "Your name (if you like)",
+  "rep.send": "Send report…",
+  "rep.sendHint": "Send am to your party situation room or collation agent, or to your observer group. VoteCheck no dey send report go INEC or anybody.",
+  "rep.titleAgent": "PARTY AGENT REPORT", "rep.agentLabel": "Party agent", "rep.partyLabel": "Party",
+});
+Object.assign(HA, {
+  "rep.h": "Rahoton rumfar zaɓe",
+  "rep.lead": "Don wakilan jam'iyya da masu sa ido a rumfar zaɓe. VoteCheck yana cike alƙaluma da bincike daga takardar da ke sama; ƙara abin da ka gani, sannan ka aika da kanka. Babu abin da zai bar wayarka har sai ka aika, ka kwafa ko ka sauke shi.",
+  "rep.role": "Ni ne", "rep.roleAgent": "Wakilin jam'iyya", "rep.roleObserver": "Mai sa ido kan zaɓe",
+  "rep.party": "Jam'iyyar da kake wakilta", "rep.observer": "Sunanka (ba dole ba ne)",
+  "rep.send": "Aika rahoto…",
+  "rep.sendHint": "Aika shi zuwa ɗakin sa ido na jam'iyyarka ko wakilin tattara sakamako, ko ƙungiyar masu sa ido. VoteCheck ba ya aika rahoto zuwa INEC ko wani.",
+  "rep.titleAgent": "RAHOTON WAKILIN JAM'IYYA", "rep.agentLabel": "Wakilin jam'iyya", "rep.partyLabel": "Jam'iyya",
+});
+Object.assign(YO, {
+  "rep.h": "Ìjábọ̀ ibùdó ìdìbò",
+  "rep.lead": "Fún àwọn aṣojú ẹgbẹ́ òṣèlú àti alábòójútó ní ibùdó ìdìbò. VoteCheck yóò kún àwọn nọ́ńbà àti àyẹ̀wò láti inú ìwé tó wà lókè; fi ohun tí o rí kún un, lẹ́yìn náà fi ránṣẹ́ fúnra rẹ. Kò sí ohun tí yóò kúrò lórí fóònù rẹ títí tí o bá fi ránṣẹ́, dà á kọ tàbí gbà á sílẹ̀.",
+  "rep.role": "Èmi ni", "rep.roleAgent": "Aṣojú ẹgbẹ́ òṣèlú", "rep.roleObserver": "Alábòójútó ìdìbò",
+  "rep.party": "Ẹgbẹ́ tí o ń ṣojú", "rep.observer": "Orúkọ rẹ (kò pọn dandan)",
+  "rep.send": "Fi ìjábọ̀ ránṣẹ́…",
+  "rep.sendHint": "Fi ránṣẹ́ sí yàrá ìṣàkóso ẹgbẹ́ rẹ tàbí aṣojú àkópọ̀ èsì, tàbí sí ẹgbẹ́ alábòójútó rẹ. VoteCheck kò fi ìjábọ̀ ránṣẹ́ sí INEC tàbí ẹnikẹ́ni.",
+  "rep.titleAgent": "ÌJÁBỌ̀ AṢOJÚ ẸGBẸ́ ÒṢÈLÚ", "rep.agentLabel": "Aṣojú ẹgbẹ́", "rep.partyLabel": "Ẹgbẹ́",
+});
+Object.assign(IG, {
+  "rep.h": "Akụkọ ebe ntuli aka",
+  "rep.lead": "Maka ndị nnọchiteanya pati na ndị nlekọta n'ebe ntuli aka. VoteCheck na-ejupụta ọnụọgụgụ na nyocha site n'akwụkwọ dị n'elu; tinye ihe ị hụrụ, wee zipu ya n'onwe gị. Ọ dịghị ihe ga-apụ na ekwentị gị ruo mgbe ị zipụrụ, detuuru ma ọ bụ budata ya.",
+  "rep.role": "Abụ m", "rep.roleAgent": "Onye nnọchiteanya pati", "rep.roleObserver": "Onye nlekọta ntuli aka",
+  "rep.party": "Pati ị na-anọchite anya", "rep.observer": "Aha gị (ọ bụghị iwu)",
+  "rep.send": "Zipu akụkọ…",
+  "rep.sendHint": "Zipu ya na ọnụ ụlọ nlekọta pati gị ma ọ bụ onye nnọchiteanya nchịkọta, ma ọ bụ otu ndị nlekọta gị. VoteCheck anaghị ezigara INEC ma ọ bụ onye ọ bụla akụkọ.",
+  "rep.titleAgent": "AKỤKỌ ONYE NNỌCHITEANYA PATI", "rep.agentLabel": "Onye nnọchiteanya pati", "rep.partyLabel": "Pati",
+});
+
 export const STRINGS = { "English": EN, "Nigerian Pidgin": PCM, "Hausa": HA, "Yoruba": YO, "Igbo": IG };
 
 export function translate(lang, key, vars = {}) {

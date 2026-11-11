@@ -80,17 +80,22 @@ const store = {
 };
 const status = msg => { $("obs-status").textContent = msg; };
 
+const role = () => document.querySelector('input[name="obs-role"]:checked')?.value || "agent";
+function syncRole() { $("party-field").hidden = role() !== "agent"; }
+document.querySelectorAll('input[name="obs-role"]').forEach(r => r.addEventListener("change", () => { syncRole(); saveDraft(); }));
+
 function buildReport() {
-  const s = read(), r = checkSheet(s);
+  const s = read(), r = checkSheet(s), agent = role() === "agent";
   const val = v => (v === "" || v === undefined ? "—" : v);
   const pu = [s.puCode, s.puName].filter(Boolean).join(" · ") || "—";
   const parties = s.parties.filter(p => p.name || p.votes !== "").map(p => `${p.name || "?"}: ${val(p.votes)}`).join(", ");
   const checks = r.flags.length ? r.flags.map(f => `  • [${sevLabel(f.sev)}] ${flagText(f)}`).join("\n") : `  • ${t("rep.noIssues")}`;
   return [
-    t("rep.title"),
+    t(agent ? "rep.titleAgent" : "rep.title"),
     `${t("rep.pu")}: ${pu}`,
     `${t("rep.written")}: ${new Date().toLocaleString()}`,
-    `${t("rep.by")}: ${$("obs-who").value.trim() || "—"}`,
+    agent ? `${t("rep.partyLabel")}: ${$("obs-party").value.trim() || "—"}` : null,
+    `${t(agent ? "rep.agentLabel" : "rep.by")}: ${$("obs-who").value.trim() || "—"}`,
     "",
     `${t("rep.figures")}:`,
     `  ${t("f.registered")}: ${val(s.registered)} · ${t("f.accredited")}: ${val(s.accredited)}`,
@@ -108,10 +113,10 @@ function buildReport() {
 }
 
 function saveDraft() {
-  const ok = store.save({ who: $("obs-who").value, notes: $("obs-notes").value, text: $("obs-text").value, sheet: read() });
+  const ok = store.save({ role: role(), party: $("obs-party").value, who: $("obs-who").value, notes: $("obs-notes").value, text: $("obs-text").value, sheet: read() });
   status(ok ? t("rep.saved") : "");
 }
-["obs-who", "obs-notes", "obs-text"].forEach(id => $(id).addEventListener("input", saveDraft));
+["obs-party", "obs-who", "obs-notes", "obs-text"].forEach(id => $(id).addEventListener("input", saveDraft));
 // The sheet figures are part of the draft too, so a phone that refreshes mid-way loses nothing.
 form.addEventListener("input", saveDraft);
 ["add-party", "load-example", "clear"].forEach(id => $(id).addEventListener("click", saveDraft));
@@ -135,15 +140,21 @@ $("obs-download").addEventListener("click", () => {
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 });
 
-// Phones can hand the report straight to WhatsApp, email or SMS.
-if (navigator.share) {
-  $("obs-share").hidden = false;
-  $("obs-share").addEventListener("click", () => navigator.share({ title: t("rep.h"), text: $("obs-text").value }).catch(() => {}));
-}
+// Send: on a phone, the share menu (WhatsApp, SMS, email…); on a computer, an email draft.
+// The agent or observer chooses who receives it, for example their party's situation room. VoteCheck sends nothing itself.
+$("obs-send").addEventListener("click", async () => {
+  if (!$("obs-text").value.trim()) $("obs-text").value = buildReport();
+  const title = t(role() === "agent" ? "rep.titleAgent" : "rep.title"), text = $("obs-text").value;
+  if (navigator.share) { try { await navigator.share({ title, text }); } catch {} return; }
+  location.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(text)}`;
+});
 
 // Restore a draft if the page was closed mid-report.
 const draft = store.load();
 if (draft.sheet) fill(draft.sheet);
+if (draft.role) { const r = document.querySelector(`input[name="obs-role"][value="${draft.role}"]`); if (r) r.checked = true; }
+if (draft.party) $("obs-party").value = draft.party;
 if (draft.who) $("obs-who").value = draft.who;
 if (draft.notes) $("obs-notes").value = draft.notes;
 if (draft.text) $("obs-text").value = draft.text;
+syncRole();

@@ -74,16 +74,24 @@
       <h2 id="obs-h" data-i18n="rep.h"></h2>
       <p class="small" data-i18n="rep.lead"></p>
       <div class="fieldset">
-        <div class="field full"><label for="obs-who" data-i18n="rep.observer"></label><input type="text" id="obs-who" autocomplete="organization"></div>
+        <fieldset class="field full role-pick">
+          <legend data-i18n="rep.role"></legend>
+          <label class="check"><input type="radio" name="obs-role" value="agent" checked> <span data-i18n="rep.roleAgent"></span></label>
+          <label class="check"><input type="radio" name="obs-role" value="observer"> <span data-i18n="rep.roleObserver"></span></label>
+        </fieldset>
+        <div class="field full" id="party-field"><label for="obs-party" data-i18n="rep.party"></label><input type="text" id="obs-party" autocomplete="off"></div>
+        <div class="field full"><label for="obs-who" data-i18n="rep.observer"></label><input type="text" id="obs-who" autocomplete="name"></div>
         <div class="field full"><label for="obs-notes" data-i18n="rep.notes"></label><textarea id="obs-notes" rows="4" data-i18n-ph="rep.notesPh"></textarea></div>
       </div>
       <div class="row"><button class="btn" id="obs-make" type="button" data-i18n="rep.make"></button></div>
       <label for="obs-text" data-i18n="rep.edit"></label>
       <textarea class="report report-edit" id="obs-text" rows="16" spellcheck="true"></textarea>
+      <p class="small" id="obs-send-hint" data-i18n="rep.sendHint"></p>
       <div class="row">
+        <button class="btn" id="obs-send" type="button" data-i18n="rep.send"></button>
         <button class="btn ghost" id="obs-copy" type="button" data-i18n="rep.copy"></button>
         <button class="btn ghost" id="obs-download" type="button" data-i18n="rep.download"></button>
-        <button class="btn ghost" id="obs-share" type="button" data-i18n="rep.share" hidden></button>
+
         <span class="small" id="obs-status" role="status"></span>
       </div>
     </section>
