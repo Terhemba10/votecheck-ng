@@ -312,3 +312,7 @@ ol.steps span{color:var(--muted)}
 .y23-result{display:flex;flex-direction:column;gap:12px}
 .y23-result .tiles{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
 @media (max-width:560px){.pick-row{grid-template-columns:1fr}}
+
+/* ---------- Editable reports ---------- */
+textarea.report{width:100%;font:15px/1.6 var(--body);color:var(--ink);resize:vertical;min-height:220px}
+textarea.report:focus{border-color:var(--green)}

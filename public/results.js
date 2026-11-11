@@ -5,7 +5,7 @@ import { renderChrome, getLang, onLangChange, $, esc, t, postJSON, LANG_CODES } 
 
 renderChrome("results");
 
-let units = [], results = [], dataset = { key: "results.sample" }, reportShown = false;
+let units = [], results = [], dataset = { key: "results.sample" }, reportShown = false, reportEdited = false;
 const sevLabel = s => t(`sev.${s}`);
 // Flag wording in the chosen language, from the same rule data the server uses.
 const flagText = f => (REPORT_TEXT[getLang()] || REPORT_TEXT.English).flags[f.rule]?.(f.data || {}) ?? f.text;
@@ -26,7 +26,7 @@ function render() {
 
   $("allTable").innerHTML = `<thead><tr><th>${t("th.pu")}</th><th>${t("th.status")}</th><th>${t("th.registered")}</th><th>${t("th.accredited")}</th><th>${t("th.turnout")}</th><th>A</th><th>B</th><th>C</th><th>${t("th.rejected")}</th><th>${t("th.irev")}</th></tr></thead><tbody>${
     results.map(r => `<tr><td><strong>${esc(r.code)}</strong><br><span class="small">${esc(r.name)}</span></td><td><span class="sev ${r.sev}">${sevLabel(r.sev)}</span></td><td class="num">${r.registered}</td><td class="num">${r.accredited}</td><td class="num">${(r.turnout * 100).toFixed(1)}%</td><td class="num">${r.paper.A}</td><td class="num">${r.paper.B}</td><td class="num">${r.paper.C}</td><td class="num">${r.rejected}</td><td class="num">${r.irev ? `${r.irev.A} / ${r.irev.B} / ${r.irev.C}` : esc(t("notUploaded"))}</td></tr>`).join("")}</tbody>`;
-  if (!reportShown) $("report").textContent = t("report.default");
+  if (!reportShown) { $("report").value = ""; $("report").placeholder = t("report.default"); }
 }
 
 function load(text, ds) {
@@ -53,20 +53,21 @@ $("copyTpl").addEventListener("click", async () => {
 
 async function writeReport() {
   const btn = $("genReport"), out = $("report"), lang = getLang();
-  btn.disabled = true; out.textContent = t("report.writing");
+  btn.disabled = true; out.value = ""; out.placeholder = t("report.writing");
   try {
-    out.textContent = (await postJSON("/api/report", { language: lang, units })).report;
+    out.value = (await postJSON("/api/report", { language: lang, units })).report;
   } catch {
     // Server busy or offline: build the same report in the browser, from the same rules.
-    out.textContent = templateReport(results, lang);
+    out.value = templateReport(results, lang);
   }
   out.lang = LANG_CODES[lang] || "en";
   reportShown = true;
   btn.disabled = false;
 }
-$("genReport").addEventListener("click", writeReport);
+$("genReport").addEventListener("click", () => { reportEdited = false; writeReport(); });
+$("report").addEventListener("input", () => { reportEdited = true; });
 $("copyReport").addEventListener("click", async e => {
-  try { await navigator.clipboard.writeText($("report").textContent); e.target.textContent = t("report.copied"); }
+  try { await navigator.clipboard.writeText($("report").value); e.target.textContent = t("report.copied"); }
   catch { e.target.textContent = t("report.copyFail"); }
   setTimeout(() => { e.target.textContent = t("report.copy"); }, 1500);
 });
@@ -143,5 +144,13 @@ Promise.all([
 ]).then(([d, l]) => { y23 = d; lgaData = l; if (!d) { $("y23").hidden = true; return; } render2023(); renderPick(); })
   .catch(() => { $("y23").hidden = true; });
 
-onLangChange(() => { render(); render2023(); if (lgaData) { const keep = $("y23-lga").value; fillLgas(); $("y23-lga").value = keep; renderPick(); } if (reportShown) writeReport(); });
+onLangChange(() => { render(); render2023(); if (lgaData) { const keep = $("y23-lga").value; fillLgas(); $("y23-lga").value = keep; renderPick(); } if (reportShown && !reportEdited) writeReport(); });
+// Download the (possibly edited) report as a text file.
+$("downloadReport").addEventListener("click", () => {
+  const blob = new Blob([$("report").value], { type: "text/plain;charset=utf-8" });
+  const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: `observer-report-${new Date().toISOString().slice(0, 10)}.txt` });
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
+
 loadSample();

@@ -125,7 +125,8 @@ async function renderAccount() {
   if (!box) return;
   try {
     me = me || await (await fetch("/api/me")).json();
-    if (!me.authEnabled) { box.innerHTML = `<span class="demo-pill" title="${esc(t("demo.tip"))}">${esc(t("demo"))}</span>`; return; }
+    // Sign-in not set up on this server: the site is simply open, so show nothing here.
+    if (!me.authEnabled) { box.innerHTML = ""; return; }
     if (!me.user) { box.innerHTML = `<a class="btn ghost small" href="/login">${esc(t("signin"))}</a>`; return; }
     box.innerHTML = `<span class="who" title="${esc(me.user.email)}">${esc(me.user.name.split(" ")[0])}</span><button class="btn ghost small" id="sign-out" type="button">${esc(t("signout"))}</button>`;
     $("sign-out").addEventListener("click", async () => { await postJSON("/api/logout", {}); location.href = "/login"; });

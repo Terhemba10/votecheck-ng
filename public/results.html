@@ -48,10 +48,12 @@
         <div class="row">
           <button class="btn" id="genReport" type="button" data-i18n="report.write"></button>
           <button class="btn ghost" id="copyReport" type="button" data-i18n="report.copy"></button>
+          <button class="btn ghost" id="downloadReport" type="button" data-i18n="rep.download"></button>
         </div>
       </div>
-      <p class="small" data-i18n="report.langNote"></p>
-      <div class="report" id="report" aria-live="polite"></div>
+      <p class="small"><span data-i18n="report.langNote"></span> <span data-i18n="report.editNote"></span></p>
+      <label for="report" class="sr-only" data-i18n="report.h"></label>
+      <textarea class="report" id="report" rows="16" spellcheck="true"></textarea>
       <p class="notice" data-i18n="report.notice"></p>
     </div>
 

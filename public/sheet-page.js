@@ -69,3 +69,81 @@ $("load-example").addEventListener("click", () => fill(EXAMPLE_SHEET));
 $("clear").addEventListener("click", () => fill({}));
 onLangChange(() => { relabelRows(); update(); });
 fill({});
+
+// ---------- Observer report, written at the polling unit ----------
+// Built in the browser from the form above plus the observer's own notes. It stays on this device
+// (a draft is kept in local storage) until the observer copies, downloads or shares it.
+const DRAFT = "vc-observer-report";
+const store = {
+  load() { try { return JSON.parse(localStorage.getItem(DRAFT) || "{}"); } catch { return {}; } },
+  save(d) { try { localStorage.setItem(DRAFT, JSON.stringify(d)); return true; } catch { return false; } },
+};
+const status = msg => { $("obs-status").textContent = msg; };
+
+function buildReport() {
+  const s = read(), r = checkSheet(s);
+  const val = v => (v === "" || v === undefined ? "—" : v);
+  const pu = [s.puCode, s.puName].filter(Boolean).join(" · ") || "—";
+  const parties = s.parties.filter(p => p.name || p.votes !== "").map(p => `${p.name || "?"}: ${val(p.votes)}`).join(", ");
+  const checks = r.flags.length ? r.flags.map(f => `  • [${sevLabel(f.sev)}] ${flagText(f)}`).join("\n") : `  • ${t("rep.noIssues")}`;
+  return [
+    t("rep.title"),
+    `${t("rep.pu")}: ${pu}`,
+    `${t("rep.written")}: ${new Date().toLocaleString()}`,
+    `${t("rep.by")}: ${$("obs-who").value.trim() || "—"}`,
+    "",
+    `${t("rep.figures")}:`,
+    `  ${t("f.registered")}: ${val(s.registered)} · ${t("f.accredited")}: ${val(s.accredited)}`,
+    `  ${t("f.totalValid")}: ${val(s.totalValid)} · ${t("f.rejected")}: ${val(s.rejected)} · ${t("f.totalCast")}: ${val(s.totalCast)}`,
+    parties ? `  ${t("f.partyVotes")}: ${parties}` : null,
+    "",
+    `${t("rep.checks")}:`,
+    checks,
+    "",
+    `${t("rep.seen")}:`,
+    $("obs-notes").value.trim() || t("rep.none"),
+    "",
+    t("rep.footer"),
+  ].filter(l => l !== null).join("\n");
+}
+
+function saveDraft() {
+  const ok = store.save({ who: $("obs-who").value, notes: $("obs-notes").value, text: $("obs-text").value, sheet: read() });
+  status(ok ? t("rep.saved") : "");
+}
+["obs-who", "obs-notes", "obs-text"].forEach(id => $(id).addEventListener("input", saveDraft));
+// The sheet figures are part of the draft too, so a phone that refreshes mid-way loses nothing.
+form.addEventListener("input", saveDraft);
+["add-party", "load-example", "clear"].forEach(id => $(id).addEventListener("click", saveDraft));
+
+$("obs-make").addEventListener("click", () => {
+  $("obs-text").value = buildReport();
+  saveDraft();
+  $("obs-text").focus();
+});
+
+$("obs-copy").addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText($("obs-text").value); status(t("rep.copied")); }
+  catch { $("obs-text").select(); status(""); }
+});
+
+$("obs-download").addEventListener("click", () => {
+  const code = ($("puCode").value || "polling-unit").replace(/[^\w-]+/g, "-");
+  const blob = new Blob([$("obs-text").value], { type: "text/plain;charset=utf-8" });
+  const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: `observer-report-${code}-${new Date().toISOString().slice(0, 10)}.txt` });
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
+
+// Phones can hand the report straight to WhatsApp, email or SMS.
+if (navigator.share) {
+  $("obs-share").hidden = false;
+  $("obs-share").addEventListener("click", () => navigator.share({ title: t("rep.h"), text: $("obs-text").value }).catch(() => {}));
+}
+
+// Restore a draft if the page was closed mid-report.
+const draft = store.load();
+if (draft.sheet) fill(draft.sheet);
+if (draft.who) $("obs-who").value = draft.who;
+if (draft.notes) $("obs-notes").value = draft.notes;
+if (draft.text) $("obs-text").value = draft.text;
