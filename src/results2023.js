@@ -14,3 +14,20 @@ export function checkStateResults(data) {
   });
   return { rows, totals, rowsOk: rows.every(r => r.ok), totalsOk: totals.every(t => t.diff === 0) };
 }
+
+// One state's local government areas: how many have figures, does each row add up,
+// and (only when every LGA has figures) do they add up to the state's own total?
+export function checkLgaResults(stateRow, lgas) {
+  const withFigures = lgas.filter(l => typeof l.valid === "number");
+  const rows = withFigures.map(l => {
+    const sum = KEYS.reduce((a, k) => a + (l[k] || 0), 0);
+    return { lga: l.lga, sum, valid: l.valid, ok: sum === l.valid };
+  });
+  const complete = lgas.length > 0 && withFigures.length === lgas.length;
+  const lgaValid = withFigures.reduce((a, l) => a + l.valid, 0);
+  return {
+    have: withFigures.length, total: lgas.length, complete, rows,
+    stateMatch: complete ? lgaValid === stateRow.valid : null,
+    lgaValid, stateValid: stateRow.valid, diff: complete ? lgaValid - stateRow.valid : null,
+  };
+}

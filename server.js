@@ -106,7 +106,8 @@ async function handleReport(req, res) {
 }
 
 const TYPES = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8",
-  ".json": "application/json", ".csv": "text/csv; charset=utf-8", ".svg": "image/svg+xml" };
+  ".json": "application/json", ".csv": "text/csv; charset=utf-8", ".svg": "image/svg+xml",
+  ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp" };
 
 function serveFile(res, path) {
   if (!existsSync(path)) { res.writeHead(404); return res.end("Not found"); }
@@ -131,6 +132,7 @@ const LIB = {
   "/lib/checker.js": ["src", "checker.js"], "/lib/report_text.js": ["src", "report_text.js"], "/lib/sheet.js": ["src", "sheet.js"], "/lib/results2023.js": ["src", "results2023.js"],
   "/data/sample_results.csv": ["data", "sample_results.csv"], "/data/voter_guide.json": ["data", "voter_guide.json"],
   "/data/demo_voters.json": ["data", "demo_voters.json"], "/data/results_2023.json": ["data", "results_2023.json"],
+  "/data/results_2023_lga.json": ["data", "results_2023_lga.json"],
 };
 
 const server = http.createServer(async (req, res) => {

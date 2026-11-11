@@ -1,6 +1,6 @@
 import { COLUMNS, toUnits, analyse, summarise, templateReport } from "/lib/checker.js";
 import { REPORT_TEXT } from "/lib/report_text.js";
-import { checkStateResults } from "/lib/results2023.js";
+import { checkStateResults, checkLgaResults } from "/lib/results2023.js";
 import { renderChrome, getLang, onLangChange, $, esc, t, postJSON, LANG_CODES } from "/common.js";
 
 renderChrome("results");
@@ -91,7 +91,57 @@ function render2023() {
     y23.states.map((s, i) => { const r = chk.rows[i]; return `<tr><td><strong>${esc(s.state)}</strong></td>${cands.map(c => `<td class="num">${fmt(s[c.key])}</td>`).join("")}<td class="num">${fmt(s.others)}</td><td class="num">${fmt(s.valid)}</td><td class="num">${esc(s.turnout)}%</td><td>${r.ok ? `<span class="sev clean">${t("y23.ok")}</span>` : `<span class="sev warning">${t("sev.warning")}</span> ${esc(t("y23.rowBad", { sum: fmt(r.sum), written: fmt(r.valid) }))}`}</td></tr>`; }).join("")}</tbody>`;
   $("y23-source").textContent = t("y23.source", { src: y23.source });
 }
-fetch("/data/results_2023.json").then(r => r.ok ? r.json() : null).then(d => { y23 = d; if (!d) $("y23").hidden = true; else render2023(); }).catch(() => { $("y23").hidden = true; });
+// ---------- Pick a state, then a local government ----------
+let lgaData = null;
+const LINK_IREV = `<a href="https://www.inecelectionresults.ng" target="_blank" rel="noopener">IReV</a>`;
+function fillStates() {
+  const sel = $("y23-state");
+  if (sel.options.length) return;
+  sel.innerHTML = y23.states.map(s => `<option value="${esc(s.state)}">${esc(s.state)}</option>`).join("");
+  sel.value = "FCT";
+  sel.addEventListener("change", () => { fillLgas(); renderPick(); });
+  $("y23-lga").addEventListener("change", renderPick);
+  fillLgas();
+}
+function fillLgas() {
+  const st = $("y23-state").value, list = lgaData?.states[st] || [];
+  $("y23-lga").innerHTML = `<option value="">${esc(t("y23.wholeState"))}</option>` + list.map(l => `<option value="${esc(l.lga)}">${esc(l.lga)}</option>`).join("");
+}
+function tilesFor(row) {
+  return `<div class="tiles">${y23.candidates.map(c => `<div class="tile info"><div class="n">${fmt(row[c.key])}</div><div class="l">${esc(c.name)} (${esc(c.party)})</div></div>`).join("")}
+    <div class="tile info"><div class="n">${fmt(row.others)}</div><div class="l">${esc(t("y23.others"))}</div></div>
+    <div class="tile ok"><div class="n">${fmt(row.valid)}</div><div class="l">${esc(t("y23.validName"))}</div></div></div>`;
+}
+function rowCheck(row) {
+  const sum = ["apc", "pdp", "lp", "nnpp", "others"].reduce((a, k) => a + (row[k] || 0), 0);
+  return sum === row.valid ? `<p><span class="sev clean">${esc(t("y23.ok"))}</span></p>`
+    : `<p><span class="sev warning">${esc(t("sev.warning"))}</span> ${esc(t("y23.rowBad", { sum: fmt(sum), written: fmt(row.valid) }))}</p>`;
+}
+function renderPick() {
+  if (!y23 || !lgaData) return;
+  fillStates();
+  const stName = $("y23-state").value, lgaName = $("y23-lga").value;
+  const srow = y23.states.find(s => s.state === stName), lgas = lgaData.states[stName] || [];
+  let html;
+  if (!lgaName) {
+    const c = checkLgaResults(srow, lgas);
+    const lgaLine = c.complete ? (c.stateMatch ? t("y23.lgaSumOk") : t("y23.lgaSumBad", { sum: fmt(c.lgaValid), state: fmt(c.stateValid), diff: signed(c.diff) })) : t("y23.lgaPartial");
+    html = `<h3>${esc(t("y23.selH", { place: stName }))}</h3>${tilesFor(srow)}${rowCheck(srow)}
+      <p class="small">${esc(t("y23.coverage", { have: c.have, total: c.total }))} ${esc(lgaLine)}</p>`;
+  } else {
+    const l = lgas.find(x => x.lga === lgaName);
+    html = `<h3>${esc(t("y23.selH", { place: `${lgaName}, ${stName}` }))}</h3>` + (typeof l?.valid === "number"
+      ? tilesFor(l) + rowCheck(l)
+      : `<p class="notice">${t("y23.lgaMissing", { lga: esc(lgaName), irev: LINK_IREV })}</p>`);
+  }
+  $("y23-pick").innerHTML = `<div class="y23-result">${html}<p class="small">${esc(t("y23.source", { src: lgaName ? lgaData.source : y23.source }))}</p></div>`;
+}
 
-onLangChange(() => { render(); render2023(); if (reportShown) writeReport(); });
+Promise.all([
+  fetch("/data/results_2023.json").then(r => r.ok ? r.json() : null),
+  fetch("/data/results_2023_lga.json").then(r => r.ok ? r.json() : null),
+]).then(([d, l]) => { y23 = d; lgaData = l; if (!d) { $("y23").hidden = true; return; } render2023(); renderPick(); })
+  .catch(() => { $("y23").hidden = true; });
+
+onLangChange(() => { render(); render2023(); if (lgaData) { const keep = $("y23-lga").value; fillLgas(); $("y23-lga").value = keep; renderPick(); } if (reportShown) writeReport(); });
 loadSample();

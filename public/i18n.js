@@ -615,6 +615,92 @@ Object.assign(IG, {
   "y23.sumBad": "Ọnụọgụgụ steeti dị na mbipụta a eruteghị ngụkọta mba a kwupụtara, ya mere ụfọdụ ahịrị steeti chọrọ nyocha na akwụkwọ nchịkọta INEC.",
 });
 
+
+// Photo scenes: descriptions and the AI-generated note.
+Object.assign(EN, {
+  "scene.aiNote": "AI-generated image · fictional people",
+  "scene.votersAlt": "Three voters in traditional Hausa, Igbo and Yorùbá dress stand outside a polling unit, smiling and holding up their voter cards.",
+  "scene.ballotAlt": "A voter's thumb presses the box for Party D on a sample ballot with placeholder parties A to F, leaving an inked thumbprint.",
+  "scene.refuseAlt": "At a polling unit, a voter in a cream kaftan raises his hand to refuse money held out by a man in a dark hoodie.",
+});
+Object.assign(PCM, {
+  "scene.aiNote": "AI picture · people wey no be real",
+  "scene.votersAlt": "Three voters wey wear Hausa, Igbo and Yorùbá traditional clothes stand for front of polling unit, dem dey smile and hold up their voter cards.",
+  "scene.ballotAlt": "One voter thumb dey press the box for Party D for sample ballot wey get parties A to F, e leave ink thumbprint.",
+  "scene.refuseAlt": "For polling unit, one voter wey wear cream kaftan raise hand refuse the money wey one man for dark hoodie dey give am.",
+});
+Object.assign(HA, {
+  "scene.aiNote": "Hoton AI · mutane na ƙirƙira",
+  "scene.votersAlt": "Masu zaɓe uku sanye da kayan gargajiya na Hausa, Igbo da Yorùbá sun tsaya a gaban rumfar zaɓe, suna murmushi suna ɗaga katin zaɓensu.",
+  "scene.ballotAlt": "Babban yatsan mai zaɓe yana danna akwatin Jam'iyya D a takardar zaɓe ta misali mai jam'iyyu A zuwa F, yana barin alamar tawada.",
+  "scene.refuseAlt": "A rumfar zaɓe, mai zaɓe sanye da farar kaftan ya ɗaga hannu ya ƙi kuɗin da wani mutum sanye da baƙar riga mai hula ke miƙa masa.",
+});
+Object.assign(YO, {
+  "scene.aiNote": "Àwòrán AI · àwọn ènìyàn àròsọ",
+  "scene.votersAlt": "Olùdìbò mẹ́ta nínú aṣọ ìbílẹ̀ Hausa, Igbo àti Yorùbá dúró níwájú ibùdó ìdìbò, wọ́n ń rẹ́rìn-ín, wọ́n sì gbé káàdì ìdìbò wọn sókè.",
+  "scene.ballotAlt": "Àtàǹpàkò olùdìbò kan ń tẹ àpótí Ẹgbẹ́ D lórí ìwé ìdìbò àpẹẹrẹ tó ní ẹgbẹ́ A sí F, ó sì fi àmì àtàǹpàkò tàdáwà sílẹ̀.",
+  "scene.refuseAlt": "Ní ibùdó ìdìbò, olùdìbò kan nínú kaftan funfun gbé ọwọ́ sókè láti kọ owó tí ọkùnrin kan nínú hoodie dúdú ń nà sí i.",
+});
+Object.assign(IG, {
+  "scene.aiNote": "Foto AI · ndị mmadụ echepụtara",
+  "scene.votersAlt": "Ndị ntuli aka atọ yi uwe ọdịnala Hausa, Igbo na Yorùbá guzo n'ihu ebe ntuli aka, ha na-amụmụ ọnụ ọchị ma jide kaadị ntuli aka ha elu.",
+  "scene.ballotAlt": "Mkpịsị aka ukwu onye ntuli aka na-pịa igbe Pati D n'akwụkwọ vootu nlereanya nwere pati A ruo F, ọ na-ahapụ akara ink.",
+  "scene.refuseAlt": "N'ebe ntuli aka, otu onye ntuli aka yi kaftan ọcha weliri aka jụ ego otu nwoke yi hoodie ojii na-enye ya.",
+});
+
+
+// 2023 state and local government picker.
+Object.assign(EN, {
+  "y23.pickH": "Look up a state or local government", "y23.pickState": "State", "y23.pickLga": "Local government area", "y23.wholeState": "Whole state",
+  "y23.selH": "{place}: 2023 presidential results",
+  "y23.coverage": "The published source has figures for {have} of the {total} local government areas it lists for this state.",
+  "y23.lgaMissing": "The published source has no figures for {lga} yet. See the official result on INEC's Result Viewing Portal, {irev}.",
+  "y23.lgaSumOk": "This state's local government figures add up to its state total.",
+  "y23.lgaSumBad": "This state's local government figures add up to {sum} valid votes, but its state row says {state} (difference {diff}).",
+  "y23.lgaPartial": "Some local governments have no figures, so they can't be added up to the state total.",
+  "y23.allH": "All states (published copy)",
+});
+Object.assign(PCM, {
+  "y23.pickH": "Find one state or local government", "y23.pickState": "State", "y23.pickLga": "Local government", "y23.wholeState": "The whole state",
+  "y23.selH": "{place}: 2023 presidential results",
+  "y23.coverage": "The published source get figures for {have} out of the {total} local governments wey e list for this state.",
+  "y23.lgaMissing": "The published source never get figures for {lga}. See the official result for INEC Result Viewing Portal, {irev}.",
+  "y23.lgaSumOk": "This state local government figures add up to the state total.",
+  "y23.lgaSumBad": "This state local government figures add up to {sum} valid votes, but the state row talk {state} (difference {diff}).",
+  "y23.lgaPartial": "Some local governments no get figures, so we no fit add them up to the state total.",
+  "y23.allH": "All states (published copy)",
+});
+Object.assign(HA, {
+  "y23.pickH": "Nemo jiha ko ƙaramar hukuma", "y23.pickState": "Jiha", "y23.pickLga": "Ƙaramar hukuma", "y23.wholeState": "Dukkan jihar",
+  "y23.selH": "{place}: sakamakon zaɓen shugaban ƙasa na 2023",
+  "y23.coverage": "Tushen da aka wallafa yana da alƙaluma na ƙananan hukumomi {have} cikin {total} da ya lissafa a wannan jihar.",
+  "y23.lgaMissing": "Tushen da aka wallafa ba shi da alƙaluma na {lga} tukuna. Duba sakamakon hukuma a shafin INEC na Duba Sakamako, {irev}.",
+  "y23.lgaSumOk": "Alƙaluman ƙananan hukumomin wannan jihar sun haɗu zuwa jimillar jihar.",
+  "y23.lgaSumBad": "Alƙaluman ƙananan hukumomin wannan jihar sun haɗu zuwa ƙuri'u masu inganci {sum}, amma layin jihar ya ce {state} (bambanci {diff}).",
+  "y23.lgaPartial": "Wasu ƙananan hukumomi ba su da alƙaluma, don haka ba za a iya haɗa su zuwa jimillar jihar ba.",
+  "y23.allH": "Dukkan jihohi (kwafin da aka wallafa)",
+});
+Object.assign(YO, {
+  "y23.pickH": "Wá ìpínlẹ̀ tàbí ìjọba ìbílẹ̀ kan", "y23.pickState": "Ìpínlẹ̀", "y23.pickLga": "Ìjọba ìbílẹ̀", "y23.wholeState": "Gbogbo ìpínlẹ̀ náà",
+  "y23.selH": "{place}: èsì ìdìbò ààrẹ 2023",
+  "y23.coverage": "Orísun tí a tẹ̀ jáde ní nọ́ńbà fún ìjọba ìbílẹ̀ {have} nínú {total} tí ó ṣe àkójọ rẹ̀ fún ìpínlẹ̀ yìí.",
+  "y23.lgaMissing": "Orísun tí a tẹ̀ jáde kò tíì ní nọ́ńbà fún {lga}. Wo èsì ìjọba lórí ojú òpó INEC fún wíwo èsì, {irev}.",
+  "y23.lgaSumOk": "Nọ́ńbà àwọn ìjọba ìbílẹ̀ ìpínlẹ̀ yìí pé jọ sí àpapọ̀ ìpínlẹ̀ náà.",
+  "y23.lgaSumBad": "Nọ́ńbà àwọn ìjọba ìbílẹ̀ ìpínlẹ̀ yìí pé jọ sí ìbò tó wúlò {sum}, ṣùgbọ́n ìlà ìpínlẹ̀ náà sọ pé {state} (ìyàtọ̀ {diff}).",
+  "y23.lgaPartial": "Àwọn ìjọba ìbílẹ̀ kan kò ní nọ́ńbà, nítorí náà a kò lè pé wọn jọ sí àpapọ̀ ìpínlẹ̀ náà.",
+  "y23.allH": "Gbogbo ìpínlẹ̀ (ẹ̀dà tí a tẹ̀ jáde)",
+});
+Object.assign(IG, {
+  "y23.pickH": "Chọọ steeti ma ọ bụ ọchịchị ime obodo", "y23.pickState": "Steeti", "y23.pickLga": "Ọchịchị ime obodo", "y23.wholeState": "Steeti niile",
+  "y23.selH": "{place}: nsonaazụ ntuli aka onye isi ala 2023",
+  "y23.coverage": "Isi mmalite e bipụtara nwere ọnụọgụgụ maka ọchịchị ime obodo {have} n'ime {total} o depụtara maka steeti a.",
+  "y23.lgaMissing": "Isi mmalite e bipụtara enwebeghị ọnụọgụgụ maka {lga}. Lee nsonaazụ gọọmentị na ọnụ ụzọ INEC maka ilele nsonaazụ, {irev}.",
+  "y23.lgaSumOk": "Ọnụọgụgụ ọchịchị ime obodo nke steeti a ruru ngụkọta steeti ahụ.",
+  "y23.lgaSumBad": "Ọnụọgụgụ ọchịchị ime obodo nke steeti a ruru vootu ziri ezi {sum}, mana ahịrị steeti ahụ kwuru {state} (ọdịiche {diff}).",
+  "y23.lgaPartial": "Ụfọdụ ọchịchị ime obodo enweghị ọnụọgụgụ, ya mere enweghị ike ịgbakọ ha ruo ngụkọta steeti ahụ.",
+  "y23.allH": "Steeti niile (mbipụta e bipụtara)",
+});
+
 export const STRINGS = { "English": EN, "Nigerian Pidgin": PCM, "Hausa": HA, "Yoruba": YO, "Igbo": IG };
 
 export function translate(lang, key, vars = {}) {

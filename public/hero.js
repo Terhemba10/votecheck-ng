@@ -1,7 +1,7 @@
 // Hero: auto-rotating announcement slides with a 3D turn, over a waving Nigerian flag drawn on a canvas.
 // Respects "reduced motion": no auto-play and a still flag. Auto-play pauses on hover, focus or the Pause button.
 
-const SLIDE_MS = 8000;
+const SLIDE_MS = 5000;
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
 export function initHero({ onAction, t = (k, v) => ({ pause: "Pause", play: "Play" }[k] || `Show message ${v?.n} of ${v?.total}`) } = {}) {

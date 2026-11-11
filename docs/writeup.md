@@ -15,7 +15,7 @@
 ## The solution
 A working web app. You sign in with Google, then choose one of four tools, each on its own page:
 - **Find my polling unit.** Step-by-step guidance and INEC's official links, plus a **VIN lookup demo** that searches only fictional test voters (VINs starting `00TEST`). It shows how the lookup would work once INEC authorises a connection to its register; it never accepts or stores real VINs or NINs.
-- **Check results.** Upload polling-unit results as a CSV. Eight fixed rules flag issues by severity, and the app writes an **observer report**, in the selected language, with verification steps. The page also tests the checks on **real 2023 data**: INEC's declared national totals for the presidential election and a published state-by-state copy of the results.
+- **Check results.** Upload polling-unit results as a CSV. Eight fixed rules flag issues by severity, and the app writes an **observer report**, in the selected language, with verification steps. The page also tests the checks on **real 2023 data**: INEC's declared national totals for the presidential election and a published state-by-state copy of the results. Users can **pick any state, then any local government**, to see its 2023 figures and checks.
 - **Ask VoteCheck.** Answers questions on registration, PVCs, polling units, voting steps, results, voter rights and reporting vote buying, in five languages. Answers come from a built-in voter guide and point to inecnigeria.org for dates and locations. It politely declines to say who to vote for.
 - **Check a result sheet.** A person reads one Form EC8A and enters what they see. Fixed rules check that the figures add up, that the presiding officer has signed and stamped it, that it has a serial number, and that the completion and IReV upload times are consistent. The result is a list of what to verify, never a verdict on validity.
 
@@ -31,7 +31,7 @@ On first visit you choose English, Nigerian Pidgin, Hausa, Yorùbá or Igbo, and
 
 ## Evidence that it works
 - Live, publicly hosted prototype (link above).
-- **54 automated tests**, all passing. They cover every result rule on the sample data, every result-sheet rule, sign-in and sessions (forged, tampered and expired sessions are refused), the 2023 consistency checks, every guide translation, every interface string in all five languages (with matching placeholders, so no figure is ever dropped), and the report in all five languages.
+- **58 automated tests**, all passing. They cover every result rule on the sample data, every result-sheet rule, sign-in and sessions (forged, tampered and expired sessions are refused), the 2023 consistency checks, every guide translation, every interface string in all five languages (with matching placeholders, so no figure is ever dropped), and the report in all five languages.
 - On the fictional sample of 14 polling units, it flags exactly the 6 seeded problems (for example, unit 01-003: Party B sheet 149 vs IReV 194) and leaves the 8 clean units alone.
 
 ## Data and privacy
@@ -56,6 +56,8 @@ On first visit you choose English, Nigerian Pidgin, Hausa, Yorùbá or Igbo, and
 - **Sign-in needs a Google account.** That's a barrier for some voters. A future version could offer a guest mode for the public information pages.
 - **2023 state figures come from a secondary source.** Testing on real data, the checks found that this published state-by-state copy does not add up to INEC's declared national totals (for example, the states sum to 10,694 more votes for the APC candidate than declared), and two state rows (Kwara, Yobe) don't add up internally. The site shows this openly; the state rows need checking against INEC's official collation sheets.
 - **The VIN lookup is a demo** on fictional records until INEC gives written authorisation.
+- **Local government figures are incomplete.** The published source lists 766 LGAs but has figures for only 108; the site says so for each LGA and links to INEC's IReV for the official result. Where a state's LGAs are complete, the checks compare them with the state total (for example, Lagos's LGAs come to 32,832 fewer valid votes than its state row).
+- **Hero images are AI-generated** photographs of fictional people, labelled as such on the page.
 - **The result-sheet check relies on what a person reads off the sheet.** It does not read photos of sheets.
 
 ## Conditions for further testing

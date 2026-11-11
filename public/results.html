@@ -63,7 +63,16 @@
     <div class="card stack" id="y23">
       <h2 data-i18n="y23.h"></h2>
       <p data-i18n="y23.lead"></p>
+      <div class="y23-pick">
+        <h3 data-i18n="y23.pickH"></h3>
+        <div class="pick-row">
+          <div class="field"><label for="y23-state" data-i18n="y23.pickState"></label><select id="y23-state"></select></div>
+          <div class="field"><label for="y23-lga" data-i18n="y23.pickLga"></label><select id="y23-lga"></select></div>
+        </div>
+        <div id="y23-pick" aria-live="polite"></div>
+      </div>
       <div id="y23-summary"></div>
+      <h3 data-i18n="y23.allH"></h3>
       <div class="tablewrap"><table id="y23Table"></table></div>
       <p class="small" id="y23-source"></p>
     </div>
