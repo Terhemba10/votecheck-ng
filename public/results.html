@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Check results · VoteCheck NG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Poppins:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23008751'/%3E%3Crect x='14' width='12' height='40' fill='%23fff'/%3E%3Cpath d='M11 21l6 6 12-13' fill='none' stroke='%230b3b26' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+</head>
+<body data-title="nav.results">
+<header id="site-header"></header>
+<main>
+  <div class="page-head"><div class="inner">
+    <span class="icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+    <div><h1 data-i18n="nav.results"></h1><p data-i18n="results.lead"></p></div>
+  </div></div>
+
+  <div class="wrap">
+    <div class="card stack">
+      <div class="row" style="justify-content:space-between">
+        <h2 data-i18n="results.h"></h2>
+        <span class="sev clean" id="datasetLabel"></span>
+      </div>
+      <p class="small" data-i18n="results.help"></p>
+      <div class="row">
+        <label class="btn ghost" for="csv" style="color:var(--green-text)" data-i18n="results.upload"></label>
+        <input type="file" id="csv" accept=".csv,text/csv" class="sr-only">
+        <button class="btn ghost" id="loadSample" type="button" data-i18n="results.reload"></button>
+        <button class="btn ghost" id="copyTpl" type="button" data-i18n="results.tpl"></button>
+        <span class="small" id="csvMsg" role="status"></span>
+      </div>
+      <p class="notice" data-i18n-html="results.irev"></p>
+    </div>
+
+    <div class="tiles" id="tiles"></div>
+
+    <div class="card stack">
+      <h3 data-i18n="flagged.h"></h3>
+      <div class="tablewrap"><table id="flagTable"></table></div>
+    </div>
+
+    <div class="card stack">
+      <div class="row" style="justify-content:space-between">
+        <h3 data-i18n="report.h"></h3>
+        <div class="row">
+          <button class="btn" id="genReport" type="button" data-i18n="report.write"></button>
+          <button class="btn ghost" id="copyReport" type="button" data-i18n="report.copy"></button>
+        </div>
+      </div>
+      <p class="small" data-i18n="report.langNote"></p>
+      <div class="report" id="report" aria-live="polite"></div>
+      <p class="notice" data-i18n="report.notice"></p>
+    </div>
+
+    <div class="card stack">
+      <h3 data-i18n="all.h"></h3>
+      <div class="tablewrap"><table id="allTable"></table></div>
+    </div>
+
+    <div class="card stack" id="y23">
+      <h2 data-i18n="y23.h"></h2>
+      <p data-i18n="y23.lead"></p>
+      <div id="y23-summary"></div>
+      <div class="tablewrap"><table id="y23Table"></table></div>
+      <p class="small" id="y23-source"></p>
+    </div>
+  </div>
+</main>
+<footer id="site-footer"></footer>
+<script type="module" src="/results.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in · VoteCheck NG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23008751'/%3E%3Crect x='14' width='12' height='40' fill='%23fff'/%3E%3Cpath d='M11 21l6 6 12-13' fill='none' stroke='%230b3b26' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+</head>
+<body data-title="login.title">
+<main class="login">
+  <section class="login-art" id="login-art">
+    <div class="hero-flag" aria-hidden="true"><canvas></canvas></div>
+    <div class="hero-shade" aria-hidden="true"></div>
+    <a class="brand" href="/login" aria-label="VoteCheck NG">
+      <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#008751"/><rect x="14" width="12" height="40" fill="#fff"/><path d="M11 21l6 6 12-13" fill="none" stroke="#0B3B26" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><span class="name" style="color:#fff">VoteCheck <span style="color:#8fe0b4">NG</span></span></span>
+    </a>
+    <div>
+      <h1 data-i18n="login.h1"></h1>
+      <p data-i18n="login.p"></p>
+      <div id="login-scene"></div>
+    </div>
+  </section>
+
+  <section class="login-panel" aria-labelledby="signin-h">
+    <div class="row" style="justify-content:space-between"><h2 id="signin-h" data-i18n="login.title"></h2><label class="lang-pick"><span class="sr-only" data-i18n="language"></span><select id="login-lang"></select></label></div>
+    <p class="lead" id="signin-lead" data-i18n="login.lead"></p>
+    <div class="gsi-box" id="gsi-box"></div>
+    <p class="login-error" id="login-error" role="alert"></p>
+    <div class="privacy-note">
+      <strong data-i18n="login.what"></strong>
+      <ul>
+        <li data-i18n="login.li1"></li>
+        <li data-i18n="login.li2"></li>
+        <li data-i18n="login.li3"></li>
+      </ul>
+    </div>
+    <p class="small"><span data-i18n="login.indep"></span> <span data-i18n-html="footer.links"></span></p>
+  </section>
+</main>
+<script type="module" src="/login.js"></script>
+</body>
+</html>

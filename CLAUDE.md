@@ -37,10 +37,14 @@ votecheck-ng/
   server.js                 Node http server, static files, API routes
   src/
     checker.js              pure functions: parseCSV, toUnits, analyse, summarise, templateReport
+    report_text.js          template report wording in five languages
+    sheet.js                result-sheet (Form EC8A) checks
+    auth.js                 Google sign-in and signed session cookies
     guide.js                loads voter_guide.json, keyword fallback
     prompts.js              system prompt for the assistant and the report
   public/
-    index.html, app.js, styles.css
+    index.html, login.html, polling-unit.html, results.html, ask.html, result-sheet.html, faq.html
+    common.js, home.js, hero.js, scenes.js, *-page scripts, styles.css
   data/
     sample_results.csv      fictional sample, placeholder parties A/B/C
     voter_guide.json        reference answers
@@ -54,7 +58,19 @@ votecheck-ng/
 - `POST /api/ask` with `{ language, messages: [{role, content}] }` returns `{ answer, source: "ai" | "guide" }`.
 - `POST /api/report` with `{ language, units }` returns `{ report, source: "ai" | "template" }`. The server re-runs the checks itself and never trusts flags sent from the browser.
 - `GET /api/status` returns `{ ai: true | false }`.
-- Both POST routes have per-IP rate limiting (20/min) and body-size limits.
+- `GET /api/me` returns `{ authEnabled, googleClientId, user }`. `POST /api/login` with `{ credential }` (a Google ID token) sets the session cookie; `POST /api/logout` clears it.
+- All POST routes have per-IP rate limiting (20/min) and body-size limits.
+
+## Sign-in (in `src/auth.js`)
+- Google sign-in is on when `GOOGLE_CLIENT_ID` is set; otherwise the site runs in open demo mode.
+- The server checks the Google ID token with Google, then puts only name and email in an HMAC-signed, HttpOnly cookie (8 hours). No user database. Never collect NIN, VIN or PVC numbers.
+- With sign-in on, every page except `/login` and the `/api/ask` and `/api/report` routes need a session. Scripts, styles and data stay public.
+
+## Pages (in `public/`)
+Home `/` (animated scenes in `scenes.js` + `hero.js`, four tool cards), `/login`, `/polling-unit`, `/results`, `/ask`, `/result-sheet`, `/faq`. `common.js` draws the header, navigation, language picker and footer on every page; the chosen language is shared across pages.
+
+## Result-sheet rules (in `src/sheet.js`)
+Checks one Form EC8A as a person reads it: party votes add up to total valid; valid + rejected = total cast; over-voting; accredited > registered; presiding officer signature (critical), stamp, name and serial number (warning); no agent signatures (review); completed on election day; IReV upload not before completion, not more than 24 hours later. Wording stays neutral: never "invalid" or "fraud".
 
 ## Result-checker rules (in `src/checker.js`)
 CSV columns: `pu_code, pu_name, ward, registered, accredited, paper_a, paper_b, paper_c, rejected, irev_a, irev_b, irev_c`. Blank IReV columns mean "not uploaded".
@@ -89,9 +105,9 @@ Each polling unit gets the highest severity of its flags, or `clean`. Write unit
 - Ask before adding a database, login system or new paid service.
 
 ## Status
-v0.1 is built and working: all 12 checker tests pass, the server runs, and both API routes work with and without an API key.
+v0.2: multi-page site with Google sign-in, four tools and an FAQ. 45 tests pass (checker, result sheet, auth, guide, report). Live at https://votecheck-ng.onrender.com; Render does not auto-deploy (no GitHub app yet), so use Manual Deploy → Deploy latest commit.
 
-Guide mode now answers in all five languages: each entry in `data/voter_guide.json` has a `translations` object (Pidgin, Hausa, Yoruba, Igbo), tested in `tests/guide.test.js`. These translations were drafted by AI and **still need checking by native speakers** before the demo. The observer report template is still English-only without an API key.
+Guide, chat, FAQ and observer report work in all five languages without AI. These translations were drafted by AI and **still need checking by native speakers** before the demo. The flagged-units table, result-sheet checks and home-page messages are English only.
 
 ## Ideas for next steps
 - Streaming AI answers in the chat.

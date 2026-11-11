@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Check a result sheet · VoteCheck NG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23008751'/%3E%3Crect x='14' width='12' height='40' fill='%23fff'/%3E%3Cpath d='M11 21l6 6 12-13' fill='none' stroke='%230b3b26' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+</head>
+<body data-title="nav.sheet">
+<header id="site-header"></header>
+<main>
+  <div class="page-head"><div class="inner">
+    <span class="icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8.5 15l2.5 2.5 4.5-5"/></svg></span>
+    <div><h1 data-i18n="nav.sheet"></h1><p data-i18n="sheet.lead"></p></div>
+  </div></div>
+
+  <div class="wrap">
+    <div class="row">
+      <button class="btn ghost" id="load-example" type="button" data-i18n="sheet.example"></button>
+      <button class="btn ghost" id="clear" type="button" data-i18n="sheet.clear"></button>
+    </div>
+
+    <div class="sheet-grid">
+      <form class="card stack" id="sheet-form" novalidate>
+        <fieldset class="fieldset">
+          <legend data-i18n="sheet.puLegend"></legend>
+          <div class="field"><label for="puCode" data-i18n="f.puCode"></label><input type="text" id="puCode" name="puCode" autocomplete="off"></div>
+          <div class="field"><label for="puName" data-i18n="f.puName"></label><input type="text" id="puName" name="puName" autocomplete="off"></div>
+          <div class="field"><label for="registered" data-i18n="f.registered"></label><input type="number" id="registered" name="registered" min="0" inputmode="numeric"></div>
+          <div class="field"><label for="accredited" data-i18n="f.accredited"></label><input type="number" id="accredited" name="accredited" min="0" inputmode="numeric"></div>
+        </fieldset>
+        <hr class="soft">
+        <fieldset class="fieldset">
+          <legend data-i18n="sheet.votesLegend"></legend>
+          <div class="field full" id="parties"></div>
+          <div class="field full"><button class="btn ghost small" id="add-party" type="button" data-i18n="sheet.addParty"></button></div>
+          <div class="field"><label for="totalValid" data-i18n="f.totalValid"></label><input type="number" id="totalValid" name="totalValid" min="0" inputmode="numeric"></div>
+          <div class="field"><label for="rejected" data-i18n="f.rejected"></label><input type="number" id="rejected" name="rejected" min="0" inputmode="numeric"></div>
+          <div class="field"><label for="totalCast" data-i18n="f.totalCast"></label><input type="number" id="totalCast" name="totalCast" min="0" inputmode="numeric"></div>
+        </fieldset>
+        <hr class="soft">
+        <fieldset class="fieldset">
+          <legend data-i18n="sheet.onSheet"></legend>
+          <div class="field full"><label for="poName" data-i18n="f.poName"></label><input type="text" id="poName" name="poName" autocomplete="off"></div>
+          <label class="check field full"><input type="checkbox" id="poSigned" name="poSigned"> <span data-i18n="f.poSigned"></span></label>
+          <label class="check field full"><input type="checkbox" id="stamped" name="stamped"> <span data-i18n="f.stamped"></span></label>
+          <div class="field"><label for="agentSignatures" data-i18n="f.agents"></label><input type="number" id="agentSignatures" name="agentSignatures" min="0" inputmode="numeric"></div>
+          <div class="field"><label for="serialNumber" data-i18n="f.serial"></label><input type="text" id="serialNumber" name="serialNumber" autocomplete="off"></div>
+        </fieldset>
+        <hr class="soft">
+        <fieldset class="fieldset">
+          <legend data-i18n="sheet.times"></legend>
+          <div class="field"><label for="electionDate" data-i18n="f.electionDate"></label><input type="date" id="electionDate" name="electionDate"></div>
+          <div class="field"><label for="completedAt" data-i18n="f.completedAt"></label><input type="datetime-local" id="completedAt" name="completedAt"></div>
+          <div class="field full"><label for="uploadedAt" data-i18n="f.uploadedAt"></label><input type="datetime-local" id="uploadedAt" name="uploadedAt"></div>
+        </fieldset>
+      </form>
+
+      <aside class="card stack sheet-result" aria-labelledby="result-h">
+        <h2 id="result-h" data-i18n="sheet.resultH"></h2>
+        <div id="verdict" class="verdict" role="status"></div>
+        <ul class="flags" id="sheet-flags"></ul>
+        <div class="small" id="sheet-sums"></div>
+        <p class="notice" data-i18n="sheet.notice"></p>
+        <p class="small" data-i18n="sheet.local"></p>
+      </aside>
+    </div>
+  </div>
+</main>
+<footer id="site-footer"></footer>
+<script type="module" src="/sheet-page.js"></script>
+</body>
+</html>

@@ -1,10 +1,10 @@
 // Hero: auto-rotating announcement slides with a 3D turn, over a waving Nigerian flag drawn on a canvas.
 // Respects "reduced motion": no auto-play and a still flag. Auto-play pauses on hover, focus or the Pause button.
 
-const SLIDE_MS = 7000;
+const SLIDE_MS = 8000;
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
-export function initHero({ onAction }) {
+export function initHero({ onAction, t = (k, v) => ({ pause: "Pause", play: "Play" }[k] || `Show message ${v?.n} of ${v?.total}`) } = {}) {
   const hero = document.getElementById("hero");
   if (!hero) return;
   startFlag(hero.querySelector(".hero-flag canvas"), hero);
@@ -18,7 +18,7 @@ export function initHero({ onAction }) {
   const bars = slides.map((_, i) => {
     const b = document.createElement("button");
     b.type = "button"; b.className = "hero-bar";
-    b.setAttribute("aria-label", `Show announcement ${i + 1} of ${slides.length}`);
+    b.dataset.n = i + 1;
     b.innerHTML = "<i></i>";
     b.addEventListener("click", () => show(i));
     barsBox.appendChild(b);
@@ -65,14 +65,21 @@ export function initHero({ onAction }) {
   pauseBtn.addEventListener("click", () => {
     userPaused = !userPaused;
     pauseBtn.setAttribute("aria-pressed", String(userPaused));
-    pauseBtn.querySelector(".label").textContent = userPaused ? "Play" : "Pause";
+    relabel();
     syncPlayState();
   });
+  // Labels in the current language; home.js calls this again when the language changes.
+  function relabel() {
+    pauseBtn.querySelector(".label").textContent = t(userPaused ? "play" : "pause");
+    bars.forEach(b => b.setAttribute("aria-label", t("hero.show", { n: b.dataset.n, total: slides.length })));
+  }
+  relabel();
+  hero.relabel = relabel;
   reduceMotion.addEventListener?.("change", syncPlayState);
 
   hero.addEventListener("click", e => {
     const btn = e.target.closest("[data-action]");
-    if (btn) onAction(btn.dataset.action);
+    if (btn && onAction) onAction(btn.dataset.action);
   });
 
   hero.style.setProperty("--slide-ms", SLIDE_MS + "ms");
@@ -83,7 +90,7 @@ export function initHero({ onAction }) {
 // A close-up of a Nigerian flag (green-white-green) rippling in the wind.
 // Each frame shades a small image (GW x GH pixels) with moving diagonal folds, then scales it up smoothly,
 // which looks like soft fabric and costs very little.
-function startFlag(canvas, hero) {
+export function startFlag(canvas, hero) {
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
   const GW = 240, GH = 96;

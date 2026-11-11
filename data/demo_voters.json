@@ -1,0 +1,11 @@
+{
+  "_note": "FICTIONAL test records for the VIN lookup demo. These are not real voters, VINs, wards or polling units. Real lookups need INEC's written authorisation.",
+  "voters": [
+    { "vin": "00TEST0000000000001", "state": "Lagos", "lga": "Ikeja", "ward": "Demo Ward 03", "pu": "Demo Polling Unit 012", "code": "24-16-03-012" },
+    { "vin": "00TEST0000000000002", "state": "Kano", "lga": "Nassarawa", "ward": "Demo Ward 07", "pu": "Demo Polling Unit 004", "code": "20-30-07-004" },
+    { "vin": "00TEST0000000000003", "state": "Enugu", "lga": "Enugu North", "ward": "Demo Ward 02", "pu": "Demo Polling Unit 021", "code": "14-06-02-021" },
+    { "vin": "00TEST0000000000004", "state": "Oyo", "lga": "Ibadan North", "ward": "Demo Ward 05", "pu": "Demo Polling Unit 009", "code": "31-10-05-009" },
+    { "vin": "00TEST0000000000005", "state": "Rivers", "lga": "Port Harcourt", "ward": "Demo Ward 11", "pu": "Demo Polling Unit 017", "code": "33-20-11-017" },
+    { "vin": "00TEST0000000000006", "state": "FCT", "lga": "Abuja Municipal", "ward": "Demo Ward 08", "pu": "Demo Polling Unit 003", "code": "37-01-08-003" }
+  ]
+}

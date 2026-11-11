@@ -6,6 +6,8 @@ import { fileURLToPath } from "node:url";
 import { guideReply } from "./src/guide.js";
 import { assistantSystemPrompt, reportPrompt, LANGUAGES } from "./src/prompts.js";
 import { analyse, templateReport } from "./src/checker.js";
+import { randomBytes } from "node:crypto";
+import { SESSION_COOKIE, signSession, verifySession, parseCookies, sessionCookie, clearCookie, verifyGoogleIdToken } from "./src/auth.js";
 
 const ROOT = fileURLToPath(new URL(".", import.meta.url));
 
@@ -34,6 +36,17 @@ function rateLimited(ip) {
 // Only trust that header when we know a proxy sets it (Render sets RENDER=true), because anyone can send it.
 const BEHIND_PROXY = process.env.RENDER === "true" || process.env.TRUST_PROXY === "1";
 const clientIP = req => (BEHIND_PROXY && String(req.headers["x-forwarded-for"] || "").split(",")[0].trim()) || req.socket.remoteAddress;
+
+// Google sign-in is switched on when GOOGLE_CLIENT_ID is set. Without it the site runs in open demo mode.
+const GOOGLE_CLIENT_ID = (process.env.GOOGLE_CLIENT_ID || "").trim();
+const AUTH_ON = Boolean(GOOGLE_CLIENT_ID);
+let SESSION_SECRET = process.env.SESSION_SECRET;
+if (AUTH_ON && !SESSION_SECRET) {
+  SESSION_SECRET = randomBytes(32).toString("hex");
+  console.warn("SESSION_SECRET not set: using a temporary one, so everyone is signed out when the server restarts.");
+}
+const SECURE_COOKIES = BEHIND_PROXY;
+const currentUser = req => AUTH_ON ? verifySession(parseCookies(req.headers.cookie)[SESSION_COOKIE], SESSION_SECRET) : null;
 
 async function callClaude(system, messages, maxTokens = 600) {
   const res = await fetch("https://api.anthropic.com/v1/messages", {
@@ -101,25 +114,55 @@ function serveFile(res, path) {
   createReadStream(path).pipe(res);
 }
 
+async function handleLogin(req, res) {
+  if (!AUTH_ON) return send(res, 400, { error: "Google sign-in is not set up on this server." });
+  const { credential } = await readJSON(req, 10_000);
+  try {
+    const user = await verifyGoogleIdToken(credential, GOOGLE_CLIENT_ID);
+    res.setHeader("set-cookie", sessionCookie(signSession(user, SESSION_SECRET), { secure: SECURE_COOKIES }));
+    send(res, 200, { user });
+  } catch (e) {
+    send(res, 401, { error: e.message });
+  }
+}
+
+// Shared modules and data the browser loads.
+const LIB = {
+  "/lib/checker.js": ["src", "checker.js"], "/lib/report_text.js": ["src", "report_text.js"], "/lib/sheet.js": ["src", "sheet.js"], "/lib/results2023.js": ["src", "results2023.js"],
+  "/data/sample_results.csv": ["data", "sample_results.csv"], "/data/voter_guide.json": ["data", "voter_guide.json"],
+  "/data/demo_voters.json": ["data", "demo_voters.json"], "/data/results_2023.json": ["data", "results_2023.json"],
+};
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, "http://localhost");
   try {
     if (req.method === "POST" && url.pathname.startsWith("/api/")) {
       if (rateLimited(clientIP(req))) return send(res, 429, { error: "Too many requests. Try again in a minute." });
+      if (url.pathname === "/api/login") return await handleLogin(req, res);
+      if (url.pathname === "/api/logout") { res.setHeader("set-cookie", clearCookie({ secure: SECURE_COOKIES })); return send(res, 200, { ok: true }); }
+      if (AUTH_ON && !currentUser(req)) return send(res, 401, { error: "Sign in with Google to use this tool." });
       if (url.pathname === "/api/ask") return await handleAsk(req, res);
       if (url.pathname === "/api/report") return await handleReport(req, res);
       return send(res, 404, { error: "Unknown route" });
     }
     if (req.method === "GET" && url.pathname === "/api/status") return send(res, 200, { ai: AI_ON });
+    if (req.method === "GET" && url.pathname === "/api/me")
+      return send(res, 200, { authEnabled: AUTH_ON, googleClientId: GOOGLE_CLIENT_ID || null, user: currentUser(req) });
     if (req.method !== "GET") { res.writeHead(405); return res.end(); }
-    // Shared modules and sample data for the browser
-    if (url.pathname === "/lib/checker.js") return serveFile(res, join(ROOT, "src", "checker.js"));
-    if (url.pathname === "/lib/report_text.js") return serveFile(res, join(ROOT, "src", "report_text.js"));
-    if (url.pathname === "/data/sample_results.csv") return serveFile(res, join(ROOT, "data", "sample_results.csv"));
-    if (url.pathname === "/data/voter_guide.json") return serveFile(res, join(ROOT, "data", "voter_guide.json"));
-    const rel = normalize(url.pathname === "/" ? "/index.html" : url.pathname).replace(/^(\.\.[/\\])+/, "");
+    if (LIB[url.pathname]) return serveFile(res, join(ROOT, ...LIB[url.pathname]));
+
+    // Pages: "/" is the home page, and "/ask" serves ask.html.
+    let rel = normalize(url.pathname === "/" ? "/index.html" : url.pathname).replace(/^(\.\.[/\\])+/, "");
+    if (!extname(rel)) rel += ".html";
     const file = join(ROOT, "public", rel);
     if (!file.startsWith(join(ROOT, "public"))) { res.writeHead(403); return res.end(); }
+
+    // With sign-in on, every page except the sign-in page needs a session. Scripts, styles and data stay public.
+    if (AUTH_ON && rel.endsWith(".html")) {
+      const isLogin = rel.replace(/\\/g, "/") === "/login.html", user = currentUser(req);
+      if (!user && !isLogin) { res.writeHead(302, { location: "/login" }); return res.end(); }
+      if (user && isLogin) { res.writeHead(302, { location: "/" }); return res.end(); }
+    }
     serveFile(res, file);
   } catch (e) {
     send(res, 400, { error: e.message });
@@ -129,4 +172,5 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, () => {
   console.log(`VoteCheck NG running at http://localhost:${PORT}`);
   console.log(AI_ON ? `AI mode on (model: ${MODEL})` : "AI key not set: using the built-in guide and template reports. Add ANTHROPIC_API_KEY to .env to switch AI on.");
+  console.log(AUTH_ON ? "Google sign-in is on." : "Google sign-in is off (no GOOGLE_CLIENT_ID): the site runs in open demo mode.");
 });

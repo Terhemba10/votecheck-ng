@@ -15,3 +15,9 @@ services:
       # Optional: set ANTHROPIC_API_KEY in the Render dashboard (never in this file) to switch on AI answers.
       - key: ANTHROPIC_API_KEY
         sync: false
+      # Google sign-in: paste your OAuth Web client ID in the dashboard. Leave it empty to run in open demo mode.
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      # Signs the session cookie. Render generates a random value.
+      - key: SESSION_SECRET
+        generateValue: true

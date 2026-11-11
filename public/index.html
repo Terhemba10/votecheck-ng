@@ -4,155 +4,84 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>VoteCheck NG</title>
+<meta name="description" content="Independent, nonpartisan election help for Nigerian voters and observers, in five languages.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Poppins:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%231f7a34'/%3E%3Crect x='14' y='0' width='12' height='40' fill='%23fff'/%3E%3Cpath d='M11 21l6 6 12-13' fill='none' stroke='%230a3a22' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23008751'/%3E%3Crect x='14' width='12' height='40' fill='%23fff'/%3E%3Cpath d='M11 21l6 6 12-13' fill='none' stroke='%230b3b26' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 </head>
-<body>
-<header class="topbar">
-  <div class="inner">
-    <a class="brand" href="/" aria-label="VoteCheck NG home">
-      <!-- Original mark: a green-white-green tile with a check, for "verified". Not the INEC logo or the coat of arms. -->
-      <svg width="44" height="44" viewBox="0 0 40 40" aria-hidden="true">
-        <rect width="40" height="40" rx="10" fill="#1f7a34"/>
-        <rect x="14" y="0" width="12" height="40" fill="#fff"/>
-        <path d="M11 21l6 6 12-13" fill="none" stroke="#0a3a22" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <span>
-        <span class="name">VoteCheck <span>NG</span></span>
-        <span class="sub">Independent election help &amp; result checking</span>
-      </span>
-    </a>
-    <a class="official" href="https://inecnigeria.org" target="_blank" rel="noopener"><span class="hide-xs">Official </span>INEC site ↗</a>
-  </div>
-</header>
-<div class="flagline" aria-hidden="true"></div>
+<body data-title="home">
+<header id="site-header"></header>
 
-<!-- Announcement slider. Background: a waving Nigerian flag drawn live on a canvas (hero.js), not a photo. -->
-<section class="hero" id="hero" aria-roledescription="carousel" aria-label="Announcements">
-  <div class="hero-flag" aria-hidden="true"><canvas></canvas></div>
-  <div class="hero-shade" aria-hidden="true"></div>
-  <div class="inner hero-inner">
-    <h1 class="sr-only">VoteCheck NG: independent election help and result checking</h1>
-    <div class="hero-bars" role="group" aria-label="Choose announcement"></div>
-    <div class="slides">
-      <article class="slide" role="group" aria-roledescription="slide" aria-label="1 of 4">
-        <p class="eyebrow">Voter help · 5 languages</p>
-        <h2 class="slide-title">Ask how voting works, in your own language.</h2>
-        <p class="tag">Registration, PVCs, polling units, voting steps and results, answered in English, Pidgin, Hausa, Yorùbá and Igbo.</p>
-        <button class="btn hero-cta" type="button" data-action="ask">Ask a question <span aria-hidden="true">→</span></button>
-      </article>
-      <article class="slide" role="group" aria-roledescription="slide" aria-label="2 of 4">
-        <p class="eyebrow">Result checker</p>
-        <h2 class="slide-title">Check that polling-unit results add up.</h2>
-        <p class="tag">Upload results as a CSV. Fixed rules flag gaps between result sheets (Form EC8A) and IReV uploads, over-voting and missing uploads.</p>
-        <button class="btn hero-cta" type="button" data-action="check">Check results <span aria-hidden="true">→</span></button>
-      </article>
-      <article class="slide" role="group" aria-roledescription="slide" aria-label="3 of 4">
-        <p class="eyebrow">Know your rights</p>
-        <h2 class="slide-title">Your vote is secret. Selling it is an offence.</h2>
-        <p class="tag">Never photograph your ballot. Report vote buying to INEC officials, security agents at the polling unit, or accredited observers.</p>
-        <button class="btn hero-cta" type="button" data-action="votebuy">What to do <span aria-hidden="true">→</span></button>
-      </article>
-      <article class="slide" role="group" aria-roledescription="slide" aria-label="4 of 4">
-        <p class="eyebrow">How it works</p>
-        <h2 class="slide-title">Rules decide the flags. People decide the outcome.</h2>
-        <p class="tag">AI only explains. A flag means "verify this", never "fraud", and the same data always gives the same flags.</p>
-        <button class="btn hero-cta" type="button" data-action="check">See the checker <span aria-hidden="true">→</span></button>
-      </article>
-    </div>
-    <button class="hero-pause" type="button" aria-pressed="false"><span aria-hidden="true" class="icon"></span><span class="label">Pause</span></button>
-  </div>
-</section>
-
-<main class="wrap">
-
-  <div class="tabs" role="tablist">
-    <button class="tab" role="tab" id="tab-ask" aria-selected="true" aria-controls="panel-ask">Voter help</button>
-    <button class="tab" role="tab" id="tab-check" aria-selected="false" aria-controls="panel-check">Result checker</button>
-  </div>
-
-  <!-- VOTER HELP -->
-  <section class="panel" id="panel-ask" role="tabpanel" aria-labelledby="tab-ask">
-    <div class="card">
-      <div class="row" style="justify-content:space-between">
-        <h2>Ask about voting</h2>
-        <div class="row">
-          <label for="lang">Language</label>
-          <select id="lang">
-            <option>English</option><option>Nigerian Pidgin</option><option>Hausa</option><option>Yoruba</option><option>Igbo</option>
-          </select>
-        </div>
+<main>
+  <section class="hero" id="hero" aria-roledescription="carousel" data-i18n-aria="hero.label">
+    <div class="hero-flag" aria-hidden="true"><canvas></canvas></div>
+    <div class="hero-shade" aria-hidden="true"></div>
+    <div class="inner hero-inner">
+      <h1 class="sr-only" data-i18n="home.sr"></h1>
+      <div class="hero-bars" role="group" data-i18n-aria="hero.choose"></div>
+      <div class="slides">
+        <article class="slide" role="group" aria-roledescription="slide" aria-label="1 of 3">
+          <div>
+            <h2 class="slide-title" data-i18n="s1.title"></h2>
+            <p class="slide-text" data-i18n="s1.text"></p>
+            <a class="btn hero-cta" href="/ask" data-i18n="s1.cta"></a>
+          </div>
+          <div class="scene-slot" data-scene="voters"></div>
+        </article>
+        <article class="slide from-left" role="group" aria-roledescription="slide" aria-label="2 of 3">
+          <div>
+            <h2 class="slide-title" data-i18n="s2.title"></h2>
+            <p class="slide-text" data-i18n="s2.text"></p>
+            <a class="btn hero-cta" href="/faq#how-voting-works" data-i18n="s2.cta"></a>
+          </div>
+          <div class="scene-slot" data-scene="ballot"></div>
+        </article>
+        <article class="slide" role="group" aria-roledescription="slide" aria-label="3 of 3">
+          <div>
+            <h2 class="slide-title" data-i18n="s3.title"></h2>
+            <p class="slide-text" data-i18n="s3.text"></p>
+            <a class="btn hero-cta" href="/ask?topic=vote-buying" data-i18n="s3.cta"></a>
+          </div>
+          <div class="scene-slot" data-scene="refuse"></div>
+        </article>
       </div>
-      <p class="small" style="margin:6px 0 12px">It answers questions about how voting works. It never says who to vote for. Always confirm dates and locations on INEC's official website, inecnigeria.org.</p>
-      <div class="chips" id="chips"></div>
-    </div>
-    <div class="card" style="display:flex;flex-direction:column;gap:12px">
-      <div class="chat" id="chat" aria-live="polite"></div>
-      <form class="composer" id="composer">
-        <label for="q" class="small" style="position:absolute;left:-9999px">Your question</label>
-        <textarea id="q" rows="2" placeholder="Type your question, e.g. I lost my PVC, what do I do?"></textarea>
-        <button class="btn" id="send" type="submit">Send</button>
-      </form>
-      <p class="small" id="mode"></p>
+      <button class="hero-pause" type="button" aria-pressed="false"><span aria-hidden="true" class="icon"></span><span class="label" data-i18n="pause"></span></button>
     </div>
   </section>
 
-  <!-- RESULT CHECKER -->
-  <section class="panel" id="panel-check" role="tabpanel" aria-labelledby="tab-check" hidden>
-    <div class="card" style="display:flex;flex-direction:column;gap:10px">
-      <div class="row" style="justify-content:space-between">
-        <h2>Polling-unit result checker</h2>
-        <span class="pill" id="datasetLabel">Sample data: fictional polling units</span>
-      </div>
-      <p class="small" style="margin:0">Each check uses fixed rules, so the same data always gives the same flags. A flag means "verify this", not proof of fraud. Upload a CSV with the columns in the template, or explore the fictional sample.</p>
-      <div class="row">
-        <label class="btn ghost" for="csv" style="color:var(--accent)">Upload CSV</label>
-        <input type="file" id="csv" accept=".csv,text/csv" style="position:absolute;left:-9999px">
-        <button class="btn ghost" id="loadSample" type="button">Reload sample</button>
-        <button class="btn ghost" id="copyTpl" type="button">Copy CSV template</button>
-        <span class="small" id="csvMsg"></span>
-      </div>
-    </div>
-
-    <div class="tiles" id="tiles"></div>
-
-    <div class="card">
-      <h3 style="margin-bottom:8px">Flagged polling units</h3>
-      <div class="tablewrap"><table id="flagTable"></table></div>
-    </div>
-
-    <div class="card" style="display:flex;flex-direction:column;gap:10px">
-      <div class="row" style="justify-content:space-between">
-        <h3>Observer report</h3>
-        <div class="row">
-          <label for="lang2">Language</label>
-          <select id="lang2"><option>English</option><option>Nigerian Pidgin</option><option>Hausa</option><option>Yoruba</option><option>Igbo</option></select>
-          <button class="btn" id="genReport" type="button">Write report</button>
-          <button class="btn ghost" id="copyReport" type="button">Copy</button>
-        </div>
-      </div>
-      <div class="report" id="report">Press "Write report" for a plain-language summary of the flags, with verification steps for observers.</div>
-      <p class="notice">AI only explains the flags. It does not decide results or accuse anyone. Every flag needs a person to check the physical result sheet.</p>
-    </div>
-
-    <div class="card">
-      <h3 style="margin-bottom:8px">All polling units</h3>
-      <div class="tablewrap"><table id="allTable"></table></div>
+  <section class="home-section" aria-labelledby="tools-h">
+    <h2 id="tools-h" data-i18n="tools.title"></h2>
+    <p data-i18n="tools.sub"></p>
+    <div class="tools">
+      <a class="tool" href="/polling-unit">
+        <span class="icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+        <span><h3 data-i18n="nav.polling"></h3><p data-i18n="tool.polling"></p><span class="go" data-i18n="nav.polling"></span></span>
+      </a>
+      <a class="tool" href="/results">
+        <span class="icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+        <span><h3 data-i18n="nav.results"></h3><p data-i18n="tool.results"></p><span class="go" data-i18n="nav.results"></span></span>
+      </a>
+      <a class="tool" href="/ask">
+        <span class="icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span>
+        <span><h3 data-i18n="nav.ask"></h3><p data-i18n="tool.ask"></p><span class="go" data-i18n="s1.cta"></span></span>
+      </a>
+      <a class="tool" href="/result-sheet">
+        <span class="icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8.5 15l2.5 2.5 4.5-5"/></svg></span>
+        <span><h3 data-i18n="nav.sheet"></h3><p data-i18n="tool.sheet"></p><span class="go" data-i18n="nav.sheet"></span></span>
+      </a>
     </div>
   </section>
 
+  <section class="home-section" aria-labelledby="faq-h">
+    <h2 id="faq-h" data-i18n="home.faq"></h2>
+    <p data-i18n="home.faqSub"></p>
+    <div class="faq-teaser" id="faq-teaser"></div>
+  </section>
 </main>
 
-<footer class="site-footer">
-  <div class="inner">
-    <p><strong>VoteCheck NG is an independent prototype for the #AI4Elections Hackathon.</strong> It is not an official INEC website and does not declare results. For official dates, polling units and results, visit <a href="https://inecnigeria.org" target="_blank" rel="noopener">inecnigeria.org</a>.</p>
-    <p>Sample results are invented for demonstration and use placeholder party names.</p>
-  </div>
-</footer>
-
-<script type="module" src="/app.js"></script>
+<footer id="site-footer"></footer>
+<script type="module" src="/home.js"></script>
 </body>
 </html>

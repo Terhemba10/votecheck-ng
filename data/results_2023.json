@@ -1,0 +1,406 @@
+{
+ "_note": "2023 presidential election (25 February 2023). National totals are INEC's declared figures. State rows are copied from a secondary source and do not all add up; the site shows which ones. Verify against INEC's official collation sheets before relying on any state figure.",
+ "election": "2023 presidential election, 25 February 2023",
+ "source": "Wikipedia, \"2023 Nigerian presidential election\", by-state results table (retrieved 11 November 2026), which cites INEC's IReV portal and press reports",
+ "declared": {
+  "apc": 8794726,
+  "pdp": 6984520,
+  "lp": 6101533,
+  "nnpp": 1496687,
+  "valid": 24025940
+ },
+ "candidates": [
+  {
+   "key": "apc",
+   "name": "Bola Tinubu",
+   "party": "APC"
+  },
+  {
+   "key": "pdp",
+   "name": "Atiku Abubakar",
+   "party": "PDP"
+  },
+  {
+   "key": "lp",
+   "name": "Peter Obi",
+   "party": "LP"
+  },
+  {
+   "key": "nnpp",
+   "name": "Rabiu Kwankwaso",
+   "party": "NNPP"
+  }
+ ],
+ "states": [
+  {
+   "state": "Abia",
+   "apc": 8914,
+   "pdp": 22676,
+   "lp": 327095,
+   "nnpp": 1239,
+   "others": 10113,
+   "valid": 370037,
+   "turnout": "18.00"
+  },
+  {
+   "state": "Adamawa",
+   "apc": 182881,
+   "pdp": 417611,
+   "lp": 105648,
+   "nnpp": 8006,
+   "others": 16994,
+   "valid": 731140,
+   "turnout": "34.67"
+  },
+  {
+   "state": "Akwa Ibom",
+   "apc": 160620,
+   "pdp": 214012,
+   "lp": 132683,
+   "nnpp": 7796,
+   "others": 39978,
+   "valid": 555089,
+   "turnout": "24.92"
+  },
+  {
+   "state": "Anambra",
+   "apc": 5111,
+   "pdp": 9036,
+   "lp": 584621,
+   "nnpp": 1967,
+   "others": 13126,
+   "valid": 613861,
+   "turnout": "24.63"
+  },
+  {
+   "state": "Bauchi",
+   "apc": 316694,
+   "pdp": 426607,
+   "lp": 27373,
+   "nnpp": 72103,
+   "others": 10739,
+   "valid": 853516,
+   "turnout": "31.10"
+  },
+  {
+   "state": "Bayelsa",
+   "apc": 42572,
+   "pdp": 68818,
+   "lp": 49975,
+   "nnpp": 540,
+   "others": 3420,
+   "valid": 165325,
+   "turnout": "16.38"
+  },
+  {
+   "state": "Benue",
+   "apc": 310468,
+   "pdp": 130081,
+   "lp": 308372,
+   "nnpp": 4740,
+   "others": 16414,
+   "valid": 770075,
+   "turnout": "28.72"
+  },
+  {
+   "state": "Borno",
+   "apc": 252282,
+   "pdp": 190921,
+   "lp": 7205,
+   "nnpp": 4626,
+   "others": 10253,
+   "valid": 465287,
+   "turnout": "19.94"
+  },
+  {
+   "state": "Cross River",
+   "apc": 130520,
+   "pdp": 95425,
+   "lp": 179917,
+   "nnpp": 1644,
+   "others": 9462,
+   "valid": 416968,
+   "turnout": "26.10"
+  },
+  {
+   "state": "Delta",
+   "apc": 90183,
+   "pdp": 161600,
+   "lp": 341866,
+   "nnpp": 3122,
+   "others": 18570,
+   "valid": 615341,
+   "turnout": "20.32"
+  },
+  {
+   "state": "Ebonyi",
+   "apc": 42402,
+   "pdp": 13503,
+   "lp": 259738,
+   "nnpp": 1661,
+   "others": 8047,
+   "valid": 325351,
+   "turnout": "21.58"
+  },
+  {
+   "state": "Edo",
+   "apc": 144471,
+   "pdp": 89585,
+   "lp": 331163,
+   "nnpp": 2743,
+   "others": 13304,
+   "valid": 581266,
+   "turnout": "24.01"
+  },
+  {
+   "state": "Ekiti",
+   "apc": 201494,
+   "pdp": 89554,
+   "lp": 11397,
+   "nnpp": 264,
+   "others": 5462,
+   "valid": 308171,
+   "turnout": "31.84"
+  },
+  {
+   "state": "Enugu",
+   "apc": 4772,
+   "pdp": 15749,
+   "lp": 428640,
+   "nnpp": 1808,
+   "others": 5455,
+   "valid": 456424,
+   "turnout": "22.19"
+  },
+  {
+   "state": "FCT",
+   "apc": 90902,
+   "pdp": 74194,
+   "lp": 281717,
+   "nnpp": 4517,
+   "others": 8741,
+   "valid": 460071,
+   "turnout": "30.48"
+  },
+  {
+   "state": "Gombe",
+   "apc": 146977,
+   "pdp": 317123,
+   "lp": 26160,
+   "nnpp": 10520,
+   "others": 9263,
+   "valid": 510043,
+   "turnout": "33.87"
+  },
+  {
+   "state": "Imo",
+   "apc": 66171,
+   "pdp": 30004,
+   "lp": 352904,
+   "nnpp": 1536,
+   "others": 8646,
+   "valid": 459261,
+   "turnout": "22.10"
+  },
+  {
+   "state": "Jigawa",
+   "apc": 421390,
+   "pdp": 386587,
+   "lp": 1889,
+   "nnpp": 98234,
+   "others": 12431,
+   "valid": 920531,
+   "turnout": "40.78"
+  },
+  {
+   "state": "Kaduna",
+   "apc": 399293,
+   "pdp": 554360,
+   "lp": 294494,
+   "nnpp": 92969,
+   "others": 19037,
+   "valid": 1360153,
+   "turnout": "32.33"
+  },
+  {
+   "state": "Kano",
+   "apc": 517341,
+   "pdp": 131716,
+   "lp": 28513,
+   "nnpp": 997279,
+   "others": 27156,
+   "valid": 1702005,
+   "turnout": "30.15"
+  },
+  {
+   "state": "Katsina",
+   "apc": 482283,
+   "pdp": 489045,
+   "lp": 6376,
+   "nnpp": 69386,
+   "others": 11583,
+   "valid": 1058673,
+   "turnout": "31.03"
+  },
+  {
+   "state": "Kebbi",
+   "apc": 248088,
+   "pdp": 285175,
+   "lp": 10682,
+   "nnpp": 5038,
+   "others": 10539,
+   "valid": 559522,
+   "turnout": "29.81"
+  },
+  {
+   "state": "Kogi",
+   "apc": 240751,
+   "pdp": 145104,
+   "lp": 56217,
+   "nnpp": 4238,
+   "others": 10480,
+   "valid": 456790,
+   "turnout": "24.63"
+  },
+  {
+   "state": "Kwara",
+   "apc": 263572,
+   "pdp": 136909,
+   "lp": 31186,
+   "nnpp": 3141,
+   "others": 35203,
+   "valid": 469971,
+   "turnout": "29.29"
+  },
+  {
+   "state": "Lagos",
+   "apc": 572606,
+   "pdp": 75750,
+   "lp": 582454,
+   "nnpp": 8442,
+   "others": 32199,
+   "valid": 1271451,
+   "turnout": "18.92"
+  },
+  {
+   "state": "Nasarawa",
+   "apc": 172922,
+   "pdp": 147093,
+   "lp": 191361,
+   "nnpp": 12715,
+   "others": 16475,
+   "valid": 540566,
+   "turnout": "21.82"
+  },
+  {
+   "state": "Niger",
+   "apc": 375183,
+   "pdp": 284898,
+   "lp": 80452,
+   "nnpp": 21836,
+   "others": 16299,
+   "valid": 778668,
+   "turnout": "30.49"
+  },
+  {
+   "state": "Ogun",
+   "apc": 341554,
+   "pdp": 123831,
+   "lp": 85829,
+   "nnpp": 2200,
+   "others": 26710,
+   "valid": 580124,
+   "turnout": "22.75"
+  },
+  {
+   "state": "Ondo",
+   "apc": 369924,
+   "pdp": 115463,
+   "lp": 44405,
+   "nnpp": 930,
+   "others": 20286,
+   "valid": 551008,
+   "turnout": "28.62"
+  },
+  {
+   "state": "Osun",
+   "apc": 343945,
+   "pdp": 354366,
+   "lp": 23283,
+   "nnpp": 713,
+   "others": 10896,
+   "valid": 733203,
+   "turnout": "38.71"
+  },
+  {
+   "state": "Oyo",
+   "apc": 449884,
+   "pdp": 182977,
+   "lp": 99110,
+   "nnpp": 4095,
+   "others": 73419,
+   "valid": 809485,
+   "turnout": "26.32"
+  },
+  {
+   "state": "Plateau",
+   "apc": 307195,
+   "pdp": 243808,
+   "lp": 466272,
+   "nnpp": 8869,
+   "others": 62026,
+   "valid": 1088170,
+   "turnout": "40.33"
+  },
+  {
+   "state": "Rivers",
+   "apc": 231591,
+   "pdp": 88468,
+   "lp": 175071,
+   "nnpp": 1322,
+   "others": 27199,
+   "valid": 523651,
+   "turnout": "16.71"
+  },
+  {
+   "state": "Sokoto",
+   "apc": 285444,
+   "pdp": 288679,
+   "lp": 6568,
+   "nnpp": 1300,
+   "others": 4824,
+   "valid": 586815,
+   "turnout": "29.84"
+  },
+  {
+   "state": "Taraba",
+   "apc": 135165,
+   "pdp": 189017,
+   "lp": 146315,
+   "nnpp": 12818,
+   "others": 16043,
+   "valid": 499358,
+   "turnout": "26.67"
+  },
+  {
+   "state": "Yobe",
+   "apc": 151459,
+   "pdp": 196567,
+   "lp": 2406,
+   "nnpp": 18270,
+   "others": 7695,
+   "valid": 378397,
+   "turnout": "26.75"
+  },
+  {
+   "state": "Zamfara",
+   "apc": 298396,
+   "pdp": 193978,
+   "lp": 1660,
+   "nnpp": 4044,
+   "others": 4845,
+   "valid": 502923,
+   "turnout": "27.64"
+  }
+ ]
+}
