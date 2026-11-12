@@ -10,23 +10,7 @@
   --display:"Fraunces", Georgia, "Times New Roman", serif;
   --body:"Poppins", "Segoe UI", system-ui, sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
-  color-scheme:light;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --paper:#0d1511; --surface:#141e18; --ink:#e6eee8; --muted:#a2b2a8; --line:#25342b; --line-strong:#33463a;
-    --green:#34a86f; --green-ink:#04130b; --green-deep:#072a18; --green-soft:#16301f; --green-text:#6fd09c;
-    --violet:#b58ad8; --violet-soft:#2a1f36;
-    --crit:#ff8a7a; --crit-soft:#3a1714; --warn:#f2b45a; --warn-soft:#352610; --info:#9db4ff; --info-soft:#1c2442;
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --paper:#0d1511; --surface:#141e18; --ink:#e6eee8; --muted:#a2b2a8; --line:#25342b; --line-strong:#33463a;
-  --green:#34a86f; --green-ink:#04130b; --green-deep:#072a18; --green-soft:#16301f; --green-text:#6fd09c;
-  --violet:#b58ad8; --violet-soft:#2a1f36;
-  --crit:#ff8a7a; --crit-soft:#3a1714; --warn:#f2b45a; --warn-soft:#352610; --info:#9db4ff; --info-soft:#1c2442;
-  color-scheme:dark;
+  color-scheme:light;   /* always the white theme, even when the device is set to dark mode */
 }
 *{box-sizing:border-box}
 html,body{margin:0}
